@@ -1,0 +1,35 @@
+.hero {
+  padding-bottom: 2rem;
+
+  background-color: #37517e;
+  background-image: url("/images/hero-gradient.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .heading {
+    font-size: 2.4rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 1.5rem;
+    max-width: 600px;
+  }
+
+  .button {
+    font-size: 1.5rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .image {
+    img {
+      height: 300px;
+      filter: blur(1px);
+    }
+  }
+}
