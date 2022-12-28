@@ -38,10 +38,10 @@ export default function Header({ isHome }: Props) {
             <Link href="/help">Help</Link>
           </li>
           <li className={s.item}>
-            <Link href="/login">Login</Link>
+            <Link href="/register">Register</Link>
           </li>
           <li className="button">
-            <Link href="/register">Register</Link>
+            <Link href="/login">Log in</Link>
           </li>
         </ul>
       </div>

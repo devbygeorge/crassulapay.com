@@ -39,9 +39,11 @@
   }
 
   .image {
+    @include mix.desktop {
+      margin-right: 60px;
+    }
     img {
-      height: 300px;
-      filter: blur(1px);
+      height: 400px;
     }
   }
 }

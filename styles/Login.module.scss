@@ -1,4 +1,4 @@
-.register {
+.login {
   min-height: calc(100vh - 11.25rem);
   display: grid;
   place-items: center;
@@ -13,7 +13,6 @@
     color: #5d7079;
 
     h2 {
-      margin-bottom: 1rem;
       font-size: 1.5rem;
       font-weight: 700;
       color: #37517e;
@@ -59,16 +58,13 @@
     display: block;
   }
 
-  .login {
-    margin-top: 0.25rem;
+  .signup {
+    font-weight: 700;
+    color: #00a2dd;
+    margin-left: 0.25rem;
 
-    a {
-      font-weight: 700;
-      color: #00a2dd;
-      
-      &:hover {
-        text-decoration: underline;
-      }
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

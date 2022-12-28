@@ -18,7 +18,7 @@ export default function Hero({ isHome }: Props) {
           </Link>
         </div>
         <div className={s.image}>
-          <img src="/images/hero.png" alt="tree of money" />
+          <img src="/images/hero-2.png" alt="tree of money" />
         </div>
       </div>
     </section>
