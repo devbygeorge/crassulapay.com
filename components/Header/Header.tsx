@@ -1,21 +1,33 @@
-import s from "./Header.module.scss";
 import Link from "next/link";
+import { useState } from "react";
+import s from "./Header.module.scss";
 
 type Props = {
   isHome?: boolean;
 };
 
 export default function Header({ isHome }: Props) {
+  const [isNavActive, setNavActive] = useState(false);
+
   return (
-    <header className={`${s.header} ${isHome ? "header-absolute" : ""} `}>
+    <header
+      className={`${s.header} ${isHome ? "header-absolute" : ""} ${
+        isNavActive ? s.header_active : ""
+      }`}
+    >
       <div className={`container ${s.wrapper}`}>
         {/* Logo */}
         <Link className={s.logo} href="/">
           <img src="/logo.png" alt="Tree of Money" />
           <span>CrassulaPay</span>
         </Link>
+        {/* Mobile Navbar Toggle */}
+        <div
+          className={`${s.toggle} ${isNavActive ? s.toggle_active : ""}`}
+          onClick={() => setNavActive((state) => !state)}
+        ></div>
         {/* Navigation */}
-        <ul className={s.navbar}>
+        <ul className={`${s.navbar} ${isNavActive ? s.navbar_active : ""}`}>
           <li className={s.item}>
             <Link href="/features">Features</Link>
           </li>

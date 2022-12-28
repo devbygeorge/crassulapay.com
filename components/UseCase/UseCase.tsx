@@ -3,6 +3,17 @@ import s from "./UseCase.module.scss";
 export default function UseCase() {
   return (
     <section className={s.use_case}>
+      <div className={s.nofees}>
+        <div className="container">
+          <h3>No hidden fees.</h3>
+          <p>
+            We’re on a mission to bring transparency to finance, for people
+            without borders. We charge as little as possible, and we always show
+            you upfront. No hidden fees. No bad exchange rates. No surprises.
+            How do we collect this data?
+          </p>
+        </div>
+      </div>
       <div className={s.block}>
         <div className={s.block_text}>
           {/* Block Heading */}
