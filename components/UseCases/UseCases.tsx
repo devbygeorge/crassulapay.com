@@ -1,8 +1,8 @@
-import s from "./UseCase.module.scss";
+import s from "./UseCases.module.scss";
 
-export default function UseCase() {
+export default function UseCases() {
   return (
-    <section className={s.use_case}>
+    <section className={s.use_cases}>
       <div className={s.nofees}>
         <div className="container">
           <h3>No hidden fees.</h3>
