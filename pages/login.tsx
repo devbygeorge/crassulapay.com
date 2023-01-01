@@ -6,7 +6,7 @@ import s from "@/styles/Login.module.scss";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-export default function Home() {
+export default function Login() {
   const [activeStepIndex, setActiveStepIndex] = useState(0);
 
   const handleForm = (e: any) => {

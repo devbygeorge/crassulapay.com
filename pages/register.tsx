@@ -6,15 +6,15 @@ import s from "@/styles/Register.module.scss";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-export default function Home() {
-  const [activeStepIndex, setActiveStepIndex] = useState(0);
+export default function Register() {
+  const [activeStep, setActiveStep] = useState(0);
 
-  const goToNextStep = () => {
-    setActiveStepIndex((state) => state + 1);
+  const getNextStep = () => {
+    setActiveStep((prevState) => prevState + 1);
   };
 
-  const goToLastStep = () => {
-    setActiveStepIndex((state) => state - 1);
+  const getLastStep = () => {
+    setActiveStep((prevState) => prevState - 1);
   };
 
   const handleForm = (e: any) => {
@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>CrassulaPay - Register</title>
+        <title>CrassulaPay - Registration</title>
         <meta name="description" content="CrassulaPay" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
@@ -36,9 +36,7 @@ export default function Home() {
             <form className={s.form} onSubmit={handleForm}>
               {/* Step 1 - email input */}
               <div
-                className={`${s.step} ${
-                  activeStepIndex === 0 ? s.step_active : ""
-                }`}
+                className={`${s.step} ${activeStep === 0 ? s.step_active : ""}`}
               >
                 <h2>Create you CrassulaPay account</h2>
                 <label htmlFor="">First, enter your email address</label>
@@ -48,7 +46,7 @@ export default function Home() {
                   placeholder="Your email"
                   required
                 />
-                <button className={s.button} onClick={goToNextStep}>
+                <button className={s.button} onClick={getNextStep}>
                   Next
                 </button>
                 <hr />
@@ -59,31 +57,27 @@ export default function Home() {
 
               {/* Step 2 - number input */}
               <div
-                className={`${s.step} ${
-                  activeStepIndex === 1 ? s.step_active : ""
-                }`}
+                className={`${s.step} ${activeStep === 1 ? s.step_active : ""}`}
               >
                 <h2>Verify your phone number with a code</h2>
                 <label htmlFor="phone">
                   It helps us keep your account secure.
                 </label>
                 <input type="tel" name="phone" placeholder="Your number" />
-                <button className={s.button} onClick={goToNextStep}>
+                <button className={s.button} onClick={getNextStep}>
                   Send a verification code
                 </button>
               </div>
 
               {/* Step 3 - enter code */}
               <div
-                className={`${s.step} ${
-                  activeStepIndex === 2 ? s.step_active : ""
-                }`}
+                className={`${s.step} ${activeStep === 2 ? s.step_active : ""}`}
               >
                 <h2>Enter the 6-digit code</h2>
                 <h3>We sent it to +5848465465.</h3>
                 <label htmlFor="code">Your 6-digit code</label>
                 <input type="number" name="code" placeholder="Your code" />
-                <button className={s.button} onClick={goToNextStep}>
+                <button className={s.button} onClick={getNextStep}>
                   Submit
                 </button>
                 <button className={s.button}>I didn't reveive a code</button>
@@ -91,9 +85,7 @@ export default function Home() {
 
               {/* Step 4 - create password */}
               <div
-                className={`${s.step} ${
-                  activeStepIndex === 3 ? s.step_active : ""
-                }`}
+                className={`${s.step} ${activeStep === 3 ? s.step_active : ""}`}
               >
                 <h2>Create your password</h2>
                 <label htmlFor="password">Your password</label>
@@ -106,16 +98,14 @@ export default function Home() {
                   Password must contain a letter and a number, and be minimum of
                   9 characters
                 </p>
-                <button className={s.button} onClick={goToNextStep}>
+                <button className={s.button} onClick={getNextStep}>
                   Continue
                 </button>
               </div>
 
               {/* Step 5 - Success notification */}
               <div
-                className={`${s.step} ${
-                  activeStepIndex === 4 ? s.step_active : ""
-                }`}
+                className={`${s.step} ${activeStep === 4 ? s.step_active : ""}`}
               >
                 <h2>You registered successfully</h2>
                 <Link className={s.button} href="/">
