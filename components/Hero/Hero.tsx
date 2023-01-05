@@ -11,7 +11,7 @@ export default function Hero({ isHome }: Props) {
       <div className={`container ${s.wrapper}`}>
         <div className={s.text}>
           <h1 className={s.heading}>
-            The cheap, fast way to send money abroad.
+            Most reliable, convenient paying method.
           </h1>
           <Link href="/register" className={`${s.button} button`}>
             Get Started

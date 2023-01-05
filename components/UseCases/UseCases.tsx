@@ -17,7 +17,7 @@ export default function UseCases() {
       <div className={s.block}>
         <div className={s.block_text}>
           {/* Block Heading */}
-          <h2>Moving and living abroad just got simpler.</h2>
+          <h2>Keep your money with Crassula.</h2>
           {/* Block Item 1 */}
           <h3>Receive your salary, pension, and more.</h3>
           <p>
@@ -49,7 +49,7 @@ export default function UseCases() {
         </div>
         <div className={s.block_text}>
           {/* Block Heading */}
-          <h2>Shopping through overseas online stores.</h2>
+          <h2>Pay with crassula worldwide.</h2>
           {/* Block Item 1 */}
           <h3>Pay at the real exchange rate.</h3>
           <p>
@@ -74,41 +74,9 @@ export default function UseCases() {
         </div>
       </div>
       <div className={s.block}>
-        <div className={s.block_image}>
-          <img src="/images/usecase-3.jpeg" alt="usecase 3" />
-        </div>
         <div className={s.block_text}>
           {/* Block Heading */}
-          <h2>Receive money from around the world.</h2>
-          {/* Block Item 1 */}
-          <h3>Get paid like a local.</h3>
-          <p>
-            UK account number, Euro IBAN, US routing number, and more. All in
-            one account. Receive your salary, invoice payments, pension and
-            profit from shares.
-          </p>
-          {/* Block Item 2 */}
-          <h3>
-            Work anywhere and link your account to Amazon, PayPal and more.
-          </h3>
-          <p>
-            Use your account details to receive and manage your earnings.
-            Invoice like a local and manage your earnings from various online
-            platforms and storefronts.
-          </p>
-          {/* Block Item 3 */}
-          <h3>Convert your money in seconds.</h3>
-          <p>
-            Receive payments from anywhere, and convert them to 52 currencies.
-            You’ll always get the real exchange rate, and the low fees we’re
-            known for.
-          </p>
-        </div>
-      </div>
-      <div className={s.block}>
-        <div className={s.block_text}>
-          {/* Block Heading */}
-          <h2>Take the stress out of managing property.</h2>
+          <h2>Crassula makes life comfortable.</h2>
           {/* Block Item 1 */}
           <h3>Save when you buy property abroad.</h3>
           <p>
