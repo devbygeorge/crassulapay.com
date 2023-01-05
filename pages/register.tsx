@@ -142,7 +142,9 @@ export default function Register() {
                     onChange={updateField}
                   />
                 </div>
-                <button type="submit">Next Step</button>
+                <button className={s.button} type="submit">
+                  Next Step
+                </button>
               </form>
             </div>
 
@@ -150,7 +152,9 @@ export default function Register() {
             <div className={`${s.step} ${activeStep === 1 ? s.show : ""}`}>
               <div className={s.validation}>
                 <h2>User Validation</h2>
-                <button onClick={getNextStep}>Next Step</button>
+                <button className={s.button} onClick={getNextStep}>
+                  Next Step
+                </button>
               </div>
             </div>
 
@@ -189,8 +193,9 @@ export default function Register() {
                   <input type="checkbox" name="accept" />
                   <label htmlFor="accept">Accept Terms & Conditions</label>
                 </div>
-
-                <button onClick={getNextStep}>Next Step</button>
+                <Link href="/" className={s.button}>
+                  Done
+                </Link>
               </div>
             </div>
           </div>

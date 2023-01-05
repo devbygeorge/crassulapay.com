@@ -11,7 +11,11 @@
     color: #37517e;
   }
 
-  button {
+  .button {
+    display: grid;
+    place-items: center;
+    margin-inline: auto;
+
     background-color: #00a2dd;
     color: #fff;
 

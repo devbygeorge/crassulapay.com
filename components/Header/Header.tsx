@@ -63,7 +63,15 @@ export default function Header({ isHome }: Props) {
                 <Link href="/profile">Welcome {authorizedUser.name}</Link>
               </li>
               <li className="button">
-                <Link href="#">Log Out</Link>
+                <Link
+                  href="/"
+                  onClick={() => {
+                    localStorage.clear();
+                    setAuthorizedUser(null);
+                  }}
+                >
+                  Log Out
+                </Link>
               </li>
             </>
           ) : (

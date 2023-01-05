@@ -45,5 +45,5 @@ export default async function handler(
   rUsers.push(cUser);
   fs.writeFileSync(`database/users.json`, JSON.stringify(rUsers));
 
-  res.status(200).json({ status: "good" });
+  res.status(200).json({ status: "Account activated successfully" });
 }

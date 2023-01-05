@@ -1,0 +1,18 @@
+.profile {
+  min-height: calc(100vh - 11.25rem);
+  padding: 2rem 0;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #37517e;
+  }
+
+  .details {
+    strong {
+      font-weight: bold;
+    }
+  }
+}
