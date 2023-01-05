@@ -12,7 +12,7 @@ export const sendConfirmationEmail = ({ toUser, hash }: any) => {
 
     const message = {
       from: process.env.GOOGLE_USER,
-      to: "giopasieshvili2@gmail.com" || toUser.email,
+      to: toUser.email,
       subject: "CrassulaPay - Activate Account",
       html: `
         <h3>Hello ${toUser.name}</h3>
