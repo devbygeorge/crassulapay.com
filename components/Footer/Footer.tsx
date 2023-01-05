@@ -10,6 +10,8 @@ export default function Footer() {
           <img src="/logo.png" alt="Tree of Money" />
           <span>CrassulaPay</span>
         </Link>
+        {/* Copyright */}
+        <div>&copy; Copyright 2023</div>
       </div>
     </footer>
   );
