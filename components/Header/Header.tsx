@@ -1,13 +1,33 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import s from "./Header.module.scss";
 
 type Props = {
   isHome?: boolean;
 };
 
+type User = {
+  id: string;
+  name: string;
+  surname: string;
+  address: string;
+  email: string;
+  password: string;
+  phone: string;
+};
+
 export default function Header({ isHome }: Props) {
   const [isNavActive, setNavActive] = useState(false);
+  const [authorizedUser, setAuthorizedUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const localUser = localStorage.getItem("user");
+    if (localUser) {
+      setAuthorizedUser(JSON.parse(localUser));
+    } else {
+      setAuthorizedUser(null);
+    }
+  }, []);
 
   return (
     <header
@@ -37,12 +57,25 @@ export default function Header({ isHome }: Props) {
           <li className={s.item}>
             <Link href="/help">Help</Link>
           </li>
-          <li className={s.item}>
-            <Link href="/register">Register</Link>
-          </li>
-          <li className="button">
-            <Link href="/login">Log in</Link>
-          </li>
+          {authorizedUser ? (
+            <>
+              <li>
+                <Link href="/profile">Welcome {authorizedUser.name}</Link>
+              </li>
+              <li className="button">
+                <Link href="#">Log Out</Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className={s.item}>
+                <Link href="/register">Register</Link>
+              </li>
+              <li className="button">
+                <Link href="/login">Log in</Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </header>

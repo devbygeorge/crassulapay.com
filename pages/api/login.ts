@@ -2,11 +2,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import fs from "fs";
-import { v4 as uuidv4 } from "uuid";
-import { sendConfirmationEmail } from "./mailer";
 
 type Data = {
   status: string;
+  user?: User;
 };
 
 type User = {
@@ -23,10 +22,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const { name, surname, address, email, password, phone } = JSON.parse(
-    req.body
-  );
-  
+  const { email, password } = JSON.parse(req.body);
+
   // See pending users
   const pUsers = JSON.parse(
     fs.readFileSync("database/pending-users.json", "utf8")
@@ -42,26 +39,13 @@ export default async function handler(
       .status(200)
       .json({ status: "User is pending, check your email" });
   }
-  if (rUser) {
-    return res.status(200).json({ status: "User is registered, please login" });
+  if (rUser && rUser.password === password) {
+    return res
+      .status(200)
+      .json({ status: "Success Login, Welcome to CrassulaPay", user: rUser });
+  } else if (rUser) {
+    return res.status(200).json({ status: "Please use correct password" });
+  } else {
+    return res.status(200).json({ status: "Please use correct email" });
   }
-
-  // Add user to pending users database
-  const cUser = {
-    id: uuidv4(),
-    name: name,
-    surname: surname,
-    address: address,
-    email: email,
-    password: password,
-    phone: phone,
-  };
-  pUsers.push(cUser);
-  fs.writeFileSync(`database/pending-users.json`, JSON.stringify(pUsers));
-
-  // Send activation link through email
-  await sendConfirmationEmail({ toUser: cUser, hash: cUser.id });
-
-  // res.status(200).json({ status: `User ${name} Registered` });
-  res.status(200).json({ status: "good" });
 }

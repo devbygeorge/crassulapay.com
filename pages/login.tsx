@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import s from "@/styles/Login.module.scss";
 
@@ -7,16 +8,44 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export default function Login() {
+  const [fields, setFields] = useState({ email: "", password: "" });
   const [activeStep, setActiveStep] = useState(0);
+  const router = useRouter();
 
   const getNextStep = () => {
     setActiveStep((prevState) => prevState + 1);
   };
 
-  const handleForm = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    getNextStep();
+  const updateField = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFields((fields) => ({
+      ...fields,
+      [e.target.name]: e.target.value,
+    }));
   };
+
+  const handleForm = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+
+    // Post on backend
+    const res = await fetch("/api/login", {
+      method: "POST",
+      body: JSON.stringify(fields),
+    });
+    const data = await res.json();
+    console.log(data);
+
+    // Clear fields
+    setFields({
+      email: "",
+      password: "",
+    });
+
+    if (data.user) {
+      localStorage.setItem("user", JSON.stringify(data.user));
+      router.push("/");
+    }
+  };
+
   return (
     <>
       <Head>
@@ -47,6 +76,8 @@ export default function Login() {
                   name="email"
                   placeholder="Your email"
                   required
+                  value={fields.email}
+                  onChange={updateField}
                 />
 
                 {/* Password field */}
@@ -56,6 +87,8 @@ export default function Login() {
                   name="password"
                   placeholder="Your password"
                   required
+                  value={fields.password}
+                  onChange={updateField}
                 />
 
                 <button className={s.button} type="submit">
@@ -65,7 +98,7 @@ export default function Login() {
             </div>
 
             {/* Step 2 - number verification */}
-            <div className={`${s.step} ${activeStep === 1 ? s.show : ""}`}>
+            {/* <div className={`${s.step} ${activeStep === 1 ? s.show : ""}`}>
               <form className={s.form} onSubmit={handleForm}>
                 <h2>We just sent you an SMS</h2>
                 <p style={{ marginTop: ".5rem" }}>
@@ -84,7 +117,7 @@ export default function Login() {
                 </button>
                 <p>I didn't receive a code</p>
               </form>
-            </div>
+            </div> */}
           </div>
         </div>
       </main>

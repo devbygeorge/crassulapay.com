@@ -13,6 +13,7 @@ export default function Register() {
     surname: "",
     address: "",
     email: "",
+    password: "",
     phone: "",
   });
 
@@ -29,7 +30,6 @@ export default function Register() {
 
   const handleForm = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log("hello world");
 
     // Post on backend
     const res = await fetch("/api/register", {
@@ -45,6 +45,7 @@ export default function Register() {
       surname: "",
       address: "",
       email: "",
+      password: "",
       phone: "",
     });
 
@@ -114,6 +115,18 @@ export default function Register() {
                     placeholder="Your email"
                     required
                     value={fields.email}
+                    onChange={updateField}
+                  />
+                </div>
+                {/* Password field */}
+                <div>
+                  <label htmlFor="password">Your password:</label>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Your password"
+                    required
+                    value={fields.password}
                     onChange={updateField}
                   />
                 </div>
