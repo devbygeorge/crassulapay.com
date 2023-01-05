@@ -1,16 +1,22 @@
 .login {
-  min-height: calc(100vh - 11.25rem);
   display: grid;
   place-items: center;
   text-align: center;
-
-  .form {
-    width: min(400px, 100%);
-  }
+  min-height: calc(100vh - 11.25rem);
 
   .step {
     display: none;
+    width: 100%;
+    place-items: center;
     color: #5d7079;
+  }
+
+  .show {
+    display: grid;
+  }
+
+  .form {
+    width: min(400px, 100%);
 
     h2 {
       font-size: 1.5rem;
@@ -52,10 +58,6 @@
     &:hover {
       background-color: #0080af;
     }
-  }
-
-  .step_active {
-    display: block;
   }
 
   .signup {

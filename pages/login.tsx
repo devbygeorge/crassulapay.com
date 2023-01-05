@@ -7,20 +7,16 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export default function Login() {
-  const [activeStepIndex, setActiveStepIndex] = useState(0);
+  const [activeStep, setActiveStep] = useState(0);
 
-  const handleForm = (e: any) => {
+  const getNextStep = () => {
+    setActiveStep((prevState) => prevState + 1);
+  };
+
+  const handleForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    getNextStep();
   };
-
-  const goToNextStep = () => {
-    setActiveStepIndex((state) => state + 1);
-  };
-
-  const goToLastStep = () => {
-    setActiveStepIndex((state) => state - 1);
-  };
-
   return (
     <>
       <Head>
@@ -33,13 +29,9 @@ export default function Login() {
       <main className="main">
         <div className="container">
           <div className={s.login}>
-            <form className={s.form} onSubmit={handleForm}>
-              {/* Step 1 - credentials input */}
-              <div
-                className={`${s.step} ${
-                  activeStepIndex === 0 ? s.step_active : ""
-                }`}
-              >
+            {/* Step 1 - credentials input */}
+            <div className={`${s.step} ${activeStep === 0 ? s.show : ""}`}>
+              <form className={s.form} onSubmit={handleForm}>
                 <h2>Welcome back.</h2>
                 <h3>
                   New to Wise?
@@ -48,43 +40,51 @@ export default function Login() {
                   </Link>
                 </h3>
 
-                <label htmlFor="email">Your email address</label>
+                {/* Email field */}
+                <label htmlFor="email">Your email:</label>
                 <input
                   type="email"
                   name="email"
-                  placeholder="Your email address"
+                  placeholder="Your email"
                   required
                 />
-                <label htmlFor="password">Your password</label>
+
+                {/* Password field */}
+                <label htmlFor="password">Your password:</label>
                 <input
                   type="password"
                   name="password"
                   placeholder="Your password"
                   required
                 />
-                <button className={s.button} onClick={goToNextStep}>
+
+                <button className={s.button} type="submit">
                   Log in
                 </button>
-              </div>
+              </form>
+            </div>
 
-              {/* Step 2 - number verify */}
-              <div
-                className={`${s.step} ${
-                  activeStepIndex === 1 ? s.step_active : ""
-                }`}
-              >
+            {/* Step 2 - number verification */}
+            <div className={`${s.step} ${activeStep === 1 ? s.show : ""}`}>
+              <form className={s.form} onSubmit={handleForm}>
                 <h2>We just sent you an SMS</h2>
-                <p>
-                  To log in, enter the security code we sent to ********1231.
+                <p style={{ marginTop: ".5rem" }}>
+                  To log in, enter the security code we sent to your email
+                  address.
                 </p>
                 <label htmlFor="code">Your 6-digit code</label>
-                <input type="number" name="code" placeholder="Enter code" />
-                <Link href="/" className={s.button}>
+                <input
+                  type="number"
+                  name="code"
+                  placeholder="Enter code"
+                  required
+                />
+                <button className={s.button} type="submit">
                   Done
-                </Link>
+                </button>
                 <p>I didn't receive a code</p>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       </main>
