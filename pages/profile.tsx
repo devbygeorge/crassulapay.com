@@ -30,8 +30,8 @@ export default function Profile() {
   return (
     <>
       <Head>
-        <title>CrassulaPay - Profile</title>
-        <meta name="description" content="CrassulaPay" />
+        <title>Crassula - Profile</title>
+        <meta name="description" content="Crassula" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
       </Head>

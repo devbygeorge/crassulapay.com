@@ -8,8 +8,8 @@ export default function Pricing() {
   return (
     <>
       <Head>
-        <title>CrassulaPay - Pricing</title>
-        <meta name="description" content="CrassulaPay" />
+        <title>Crassula - Pricing</title>
+        <meta name="description" content="Crassula" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
       </Head>

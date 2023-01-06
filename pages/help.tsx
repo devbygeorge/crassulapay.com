@@ -7,8 +7,8 @@ export default function Help() {
   return (
     <>
       <Head>
-        <title>CrassulaPay - Help</title>
-        <meta name="description" content="CrassulaPay" />
+        <title>Crassula - Help</title>
+        <meta name="description" content="Crassula" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
       </Head>

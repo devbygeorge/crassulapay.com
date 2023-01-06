@@ -56,8 +56,8 @@ export default function Register() {
   return (
     <>
       <Head>
-        <title>CrassulaPay - Registration</title>
-        <meta name="description" content="CrassulaPay" />
+        <title>Crassula - Registration</title>
+        <meta name="description" content="Crassula" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
       </Head>
@@ -67,7 +67,7 @@ export default function Register() {
           <div className={s.register}>
             {/* Registration form */}
             <div className={`${s.step} ${activeStep === 0 ? s.show : ""}`}>
-              <h2>Create your CrassulaPay account</h2>
+              <h2>Create your Crassula account</h2>
 
               <form className={s.form} onSubmit={handleForm}>
                 {/* Name field */}
@@ -162,31 +162,7 @@ export default function Register() {
             <div className={`${s.step} ${activeStep === 2 ? s.show : ""}`}>
               <div className={s.terms}>
                 <h2>Terms & Conditions</h2>
-                <p>
-                  This Privacy Policy is an overview of how we collect, use, and
-                  process your personal data when you use our website
-                  https://crassulapay.com, our web application, our mobile app
-                  and email messages that we send to you jointly called:
-                  “Services”. If anything here only applies to one of our
-                  services, we’ll explicitly point this out to you.
-                </p>
-                <p>
-                  Please read this Policy carefully, as it becomes legally
-                  binding when you use our Services. For the full definition of
-                  the capitalised words here, check our Customer Agreement. We
-                  take privacy and protection of your data very seriously and
-                  are committed to handling the personal information of those we
-                  engage with, whether customers, suppliers or colleagues
-                  responsibly and in a way that meets the legal requirements of
-                  the countries in which we operate.
-                </p>
-                <p>
-                  By continuing your interactions with us, such as by submitting
-                  information to us, or using our Services, you confirm that you
-                  understand and consent to the collection, use, disclosure, and
-                  processing of your personal data in the manner as set forth in
-                  this Privacy Policy.
-                </p>
+                <p>Terms & Conditions will be added soon.</p>
 
                 {/* Accept terms & conditions checkbox */}
                 <div className={s.terms_checkbox}>

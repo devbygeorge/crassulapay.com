@@ -8,7 +8,7 @@ export default function Footer() {
         {/* Logo */}
         <Link className={s.logo} href="/">
           <img src="/logo.png" alt="Tree of Money" />
-          <span>CrassulaPay</span>
+          <span>Crassula</span>
         </Link>
         {/* Copyright */}
         <div>&copy; Copyright 2023</div>

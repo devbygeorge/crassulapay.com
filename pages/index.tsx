@@ -9,8 +9,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>CrassulaPay - Home</title>
-        <meta name="description" content="CrassulaPay" />
+        <title>Crassula - Home</title>
+        <meta name="description" content="Crassula" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
       </Head>

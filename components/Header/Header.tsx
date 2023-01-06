@@ -39,7 +39,7 @@ export default function Header({ isHome }: Props) {
         {/* Logo */}
         <Link className={s.logo} href="/">
           <img src="/logo.png" alt="Tree of Money" />
-          <span>CrassulaPay</span>
+          <span>Crassula</span>
         </Link>
         {/* Mobile Navbar Toggle */}
         <div

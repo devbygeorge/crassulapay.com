@@ -42,7 +42,7 @@ export default async function handler(
   if (rUser && rUser.password === password) {
     return res
       .status(200)
-      .json({ status: "Success Login, Welcome to CrassulaPay", user: rUser });
+      .json({ status: "Success Login, Welcome to Crassula", user: rUser });
   } else if (rUser) {
     return res.status(200).json({ status: "Please use correct password" });
   } else {
