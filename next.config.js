@@ -2,17 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
   typescript: {
-    // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
     // your project has type errors.
-    // !! WARN !!
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ["cdn.sanity.io"],
+    domains: ["res.cloudinary.com"],
   },
   i18n: {
-    locales: ["en", "ge"],
+    locales: ["en", "ru", "ge"],
     defaultLocale: "en",
   },
 };
