@@ -1,1 +1,1 @@
-Crassula
+Next.js frontend for crassula webapp.
