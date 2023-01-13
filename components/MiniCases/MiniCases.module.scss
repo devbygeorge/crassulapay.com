@@ -1,0 +1,41 @@
+@use "@/styles/abstract/mixins" as mix;
+
+.mini_cases {
+  background-color: rgba(134, 167, 189, 0.1019607843);
+  text-align: center;
+  padding-block: 4rem;
+
+  > div {
+    display: flex;
+    justify-content: space-between;
+
+    @include mix.mobile {
+      flex-direction: column;
+      gap: 4rem;
+    }
+  }
+
+  .item {
+    padding-inline: 4rem;
+    font-weight: 600;
+
+    h2 {
+      font-size: 1.6rem;
+      color: #37517e;
+      margin-bottom: 0.5rem;
+
+      @include mix.mobile {
+        font-size: 1.8rem;
+      }
+    }
+
+    p {
+      color: #5d7079;
+    }
+
+    svg {
+      font-size: 4rem;
+      color: #37517e;
+    }
+  }
+}

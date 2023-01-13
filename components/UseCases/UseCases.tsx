@@ -1,21 +1,8 @@
 import s from "./UseCases.module.scss";
-import { BiSupport } from "react-icons/bi";
-import { AiFillBank } from "react-icons/ai";
 
 export default function UseCases() {
   return (
     <section className={s.use_cases}>
-      <div className={s.nofees}>
-        <div className="container">
-          <h3>No hidden fees.</h3>
-          <p>
-            We’re on a mission to bring transparency to finance, for people
-            without borders. We charge as little as possible, and we always show
-            you upfront. No hidden fees. No bad exchange rates. No surprises.
-            How do we collect this data?
-          </p>
-        </div>
-      </div>
       {/* Block 1 */}
       <div className={s.block}>
         <div className={s.block_text}>
@@ -106,26 +93,6 @@ export default function UseCases() {
         </div>
         <div className={s.block_image}>
           <img src="/images/usecase-5.jpg" alt="usecase 4" />
-        </div>
-      </div>
-      <div className={s.double}>
-        <div className="container">
-          <div className={s.item}>
-            <AiFillBank />
-            <h2>Online Banking</h2>
-            <p>
-              We will provide personal online banking login details for your
-              comfort and convenience.
-            </p>
-          </div>
-          <div className={s.item}>
-            <BiSupport />
-            <h2>Supporting & Help.</h2>
-            <p>
-              Our site is provided with 24-hour live chat support as well as
-              24-hour hotline support.
-            </p>
-          </div>
         </div>
       </div>
     </section>

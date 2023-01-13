@@ -1,0 +1,19 @@
+@use "@/styles/abstract/mixins" as mix;
+
+.no_fees {
+  padding-block: 2.5rem;
+  background-color: #86a7bd1a;
+  text-align: center;
+
+  h3 {
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #37517e;
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: #5d7079;
+  }
+}
