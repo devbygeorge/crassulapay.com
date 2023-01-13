@@ -1,16 +1,29 @@
+import axios from "axios";
+import { useState, useEffect } from "react";
 import s from "./NoFees.module.scss";
 
+const url = `${process.env.NEXT_PUBLIC_CMS_DOMAIN}/api/no-fee?populate=*`;
+
+type FetchedData = {
+  title: string;
+  description: string;
+};
+
 export default function NoFees() {
+  const [fetchedData, setFetchedData] = useState<null | FetchedData>(null);
+
+  useEffect(() => {
+    axios
+      .get(url)
+      .then((res) => setFetchedData(res.data.data.attributes))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <div className={s.no_fees}>
       <div className="container">
-        <h3>No hidden fees.</h3>
-        <p>
-          We’re on a mission to bring transparency to finance, for people
-          without borders. We charge as little as possible, and we always show
-          you upfront. No hidden fees. No bad exchange rates. No surprises. How
-          do we collect this data?
-        </p>
+        <h3>{fetchedData?.title}</h3>
+        <p>{fetchedData?.description}</p>
       </div>
     </div>
   );
