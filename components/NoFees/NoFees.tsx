@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import s from "./NoFees.module.scss";
-
-const url = `${process.env.NEXT_PUBLIC_CMS_DOMAIN}/api/no-fee?populate=*`;
 
 type FetchedData = {
   title: string;
@@ -11,6 +10,10 @@ type FetchedData = {
 
 export default function NoFees() {
   const [fetchedData, setFetchedData] = useState<null | FetchedData>(null);
+
+  const router = useRouter();
+  const { locale } = router;
+  const url = `${process.env.NEXT_PUBLIC_CMS_DOMAIN}/api/no-fee?populate=*&locale=${locale}`;
 
   useEffect(() => {
     axios

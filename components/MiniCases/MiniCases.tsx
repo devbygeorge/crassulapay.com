@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import s from "./MiniCases.module.scss";
-
-const url = `${process.env.NEXT_PUBLIC_CMS_DOMAIN}/api/mini-cases?populate=*&sort[0]=order%3Aasc`;
 
 type Item = {
   id: number;
@@ -22,6 +21,10 @@ type Item = {
 
 export default function MiniCases() {
   const [items, setItems] = useState([]);
+
+  const router = useRouter();
+  const { locale } = router;
+  const url = `${process.env.NEXT_PUBLIC_CMS_DOMAIN}/api/mini-cases?populate=*&sort[0]=order%3Aasc&locale=${locale}`;
 
   useEffect(() => {
     axios

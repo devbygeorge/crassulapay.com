@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { en, ru, ka } from "translations";
 import s from "./Hero.module.scss";
 
 type Props = {
@@ -18,11 +20,14 @@ type FetchedData = {
   };
 };
 
-const url = `${process.env.NEXT_PUBLIC_CMS_DOMAIN}/api/hero?populate=*`;
-
 export default function Hero({ isHome }: Props) {
   const [fetchedData, setFetchedData] = useState<null | FetchedData>(null);
   const [isAuthorized, setAuthorized] = useState(false);
+
+  const router = useRouter();
+  const { locale } = router;
+  const t = locale === "ru" ? ru : locale === "ka" ? ka : en;
+  const url = `${process.env.NEXT_PUBLIC_CMS_DOMAIN}/api/hero?populate=*&locale=${locale}`;
 
   useEffect(() => {
     axios
@@ -45,11 +50,11 @@ export default function Hero({ isHome }: Props) {
           <h1 className={s.heading}>{fetchedData?.title}</h1>
           {isAuthorized ? (
             <Link href="/profile" className={`${s.button} button`}>
-              See Profile
+              {t.see_profile}
             </Link>
           ) : (
             <Link href="/register" className={`${s.button} button`}>
-              Get Started
+              {t.get_started}
             </Link>
           )}
         </div>
