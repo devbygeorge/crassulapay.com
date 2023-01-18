@@ -2,13 +2,15 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import axios from "axios";
 import s from "@/styles/Login.module.scss";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export default function Login() {
-  const [fields, setFields] = useState({ email: "", password: "" });
+  const [fields, setFields] = useState({ identifier: "", password: "" });
+  const [authErr, setAuthErr] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const router = useRouter();
 
@@ -26,23 +28,37 @@ export default function Login() {
   const handleForm = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    // Post on backend
-    const res = await fetch("/api/login", {
-      method: "POST",
-      body: JSON.stringify(fields),
-    });
-    const data = await res.json();
-    console.log(data);
+    console.log("Login form handled");
 
-    // Clear fields
-    setFields({
-      email: "",
-      password: "",
-    });
+    const url = `${process.env.NEXT_PUBLIC_CMS_DOMAIN}/api/auth/local`;
 
-    if (data.user) {
-      localStorage.setItem("user", JSON.stringify(data.user));
-      router.push("/");
+    // Post at strapi
+    axios
+      .post(url, {
+        identifier: fields.identifier,
+        password: fields.password,
+      })
+      .then((res) => {
+        localStorage.setItem("user", JSON.stringify(res.data));
+        router.push("/profile");
+      })
+      .catch((err) => {
+        setAuthErr(true);
+
+        setTimeout(() => {
+          setAuthErr(false);
+        }, 3000);
+      });
+  };
+
+  const togglePassword = () => {
+    var passwordField = document.getElementById(
+      "password-field"
+    ) as HTMLInputElement;
+    if (passwordField?.type === "password") {
+      passwordField.type = "text";
+    } else {
+      passwordField.type = "password";
     }
   };
 
@@ -68,29 +84,43 @@ export default function Login() {
                     Sign up
                   </Link>
                 </h3>
-
                 {/* Email field */}
                 <label htmlFor="email">Your email:</label>
                 <input
+                  className={s.field}
                   type="email"
-                  name="email"
+                  name="identifier"
                   placeholder="Your email"
                   required
-                  value={fields.email}
+                  value={fields.identifier}
                   onChange={updateField}
                 />
-
                 {/* Password field */}
                 <label htmlFor="password">Your password:</label>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Your password"
-                  required
-                  value={fields.password}
-                  onChange={updateField}
-                />
-
+                <div className={s.password_wrapper}>
+                  <input
+                    className={s.field}
+                    id="password-field"
+                    type="password"
+                    name="password"
+                    placeholder="Your password"
+                    required
+                    value={fields.password}
+                    onChange={updateField}
+                  />
+                  <input
+                    className={s.checkbox}
+                    type="checkbox"
+                    onClick={togglePassword}
+                  />
+                </div>
+                <p
+                  style={{
+                    display: !authErr ? "none" : "",
+                  }}
+                >
+                  Email or password is incorrect.
+                </p>
                 <button className={s.button} type="submit">
                   Log in
                 </button>

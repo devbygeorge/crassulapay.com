@@ -6,12 +6,10 @@ import Footer from "@/components/Footer";
 
 type User = {
   id: string;
+  username: string;
   name: string;
   surname: string;
-  address: string;
   email: string;
-  password: string;
-  phone: string;
 };
 
 export default function Profile() {
@@ -20,13 +18,12 @@ export default function Profile() {
   useEffect(() => {
     const localUser = localStorage.getItem("user");
     if (localUser) {
-      setUser(JSON.parse(localUser));
+      setUser(JSON.parse(localUser).user);
     } else {
       setUser(null);
     }
   }, []);
 
-  console.log(user);
   return (
     <>
       <Head>
@@ -44,6 +41,10 @@ export default function Profile() {
               {user ? (
                 <>
                   <h3>
+                    <strong>Username: </strong>
+                    {user.username}
+                  </h3>
+                  <h3>
                     <strong>Name: </strong>
                     {user.name}
                   </h3>
@@ -51,17 +52,18 @@ export default function Profile() {
                     <strong>Surname: </strong>
                     {user.surname}
                   </h3>
-                  <h3>
-                    <strong>Address: </strong>
-                    {user.address}
-                  </h3>
+
                   <h3>
                     <strong>Email: </strong>
                     {user.email}
                   </h3>
                   <h3>
+                    <strong>Address: </strong>
+                    Coming Soon
+                  </h3>
+                  <h3>
                     <strong>Phone: </strong>
-                    {user.phone}
+                    Coming Soon
                   </h3>
                 </>
               ) : (

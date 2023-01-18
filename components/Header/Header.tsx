@@ -13,12 +13,10 @@ type Props = {
 
 type User = {
   id: string;
+  username: string;
   name: string;
   surname: string;
-  address: string;
   email: string;
-  password: string;
-  phone: string;
 };
 
 type Category = {
@@ -48,7 +46,7 @@ export default function Header({ isHome }: Props) {
 
     const localUser = localStorage.getItem("user");
     if (localUser) {
-      setAuthorizedUser(JSON.parse(localUser));
+      setAuthorizedUser(JSON.parse(localUser).user);
     } else {
       setAuthorizedUser(null);
     }
