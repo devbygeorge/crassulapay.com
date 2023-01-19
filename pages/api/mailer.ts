@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
 
+/* Send welcome email to newly registered users */
 export const sendConfirmationEmail = ({ toUser, hash }: any) => {
   return new Promise((res, rej) => {
     const transporter = nodemailer.createTransport({
@@ -17,7 +18,6 @@ export const sendConfirmationEmail = ({ toUser, hash }: any) => {
       html: `
         <h3>Hello ${toUser.name}</h3>
         <p>Thank you for registering into Crassula.</p>
-        <p>To activate your account please follow this link: <a target="_" href="${process.env.DOMAIN}/api/activate/${hash}">Activate Link</a>.</p>
       `,
     };
 
