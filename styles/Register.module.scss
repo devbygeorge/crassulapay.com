@@ -4,15 +4,15 @@
   min-height: calc(100vh - 11.25rem);
   padding: 2rem 0;
 
-  // Headings
-  h2 {
+  /* Headings */
+  .heading {
     margin-bottom: 1rem;
     font-size: 1.5rem;
     font-weight: 700;
     color: #37517e;
   }
 
-  // Buttons
+  /* Buttons */
   .button {
     display: grid;
     place-items: center;
@@ -33,6 +33,7 @@
     }
   }
 
+  /* Fill information form */
   .fill_form {
     width: min(400px, 100%);
     margin-inline: auto;
@@ -45,6 +46,10 @@
 
       font-size: 0.95rem;
       color: #5d7079;
+    }
+
+    .error_message {
+      margin-bottom: 0.85rem;
     }
 
     label {
@@ -64,12 +69,7 @@
     }
   }
 
-  // Validation
-  .validation {
-    display: block;
-  }
-
-  // Terms & Conditions
+  /* Terms & Conditions form */
   .terms_form {
     width: 100%;
 
@@ -89,7 +89,7 @@
     }
   }
 
-  // Step
+  /* Steps Styling */
   .step {
     display: none;
     width: 100%;

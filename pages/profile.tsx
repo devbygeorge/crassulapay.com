@@ -6,10 +6,11 @@ import Footer from "@/components/Footer";
 
 type User = {
   id: string;
-  username: string;
   name: string;
   surname: string;
   email: string;
+  phone: string;
+  confirmed: boolean;
 };
 
 export default function Profile() {
@@ -41,10 +42,6 @@ export default function Profile() {
               {user ? (
                 <>
                   <h3>
-                    <strong>Username: </strong>
-                    {user.username}
-                  </h3>
-                  <h3>
                     <strong>Name: </strong>
                     {user.name}
                   </h3>
@@ -56,13 +53,17 @@ export default function Profile() {
                   <h3>
                     <strong>Email: </strong>
                     {user.email}
-                  </h3>
-                  <h3>
-                    <strong>Address: </strong>
-                    Coming Soon
+                    <strong>
+                      {" "}
+                      {user.confirmed ? "Verified" : "Unverified"}
+                    </strong>
                   </h3>
                   <h3>
                     <strong>Phone: </strong>
+                    {user.phone}
+                  </h3>
+                  <h3>
+                    <strong>Address: </strong>
                     Coming Soon
                   </h3>
                 </>
