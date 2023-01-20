@@ -43,6 +43,7 @@
       flex-direction: column;
       gap: 0.25rem;
       margin-bottom: 1rem;
+      position: relative;
 
       font-size: 0.95rem;
       color: #5d7079;
@@ -65,6 +66,62 @@
       &:focus {
         outline: none;
         border-color: #4ca1c2;
+      }
+    }
+
+    .phone_field {
+      padding-left: 5rem;
+    }
+
+    .select_code {
+      position: absolute;
+      top: 2.18rem;
+      left: 0.5rem;
+    }
+
+    .active_code {
+      cursor: pointer;
+      border: 1px solid #c9cbce;
+      padding: 0.15rem 0.5rem;
+      border-radius: 0.25rem;
+      font-weight: bold;
+    }
+
+    .codes_menu {
+      position: absolute;
+      top: 2rem;
+
+      display: none;
+      flex-direction: column;
+
+      height: 200px;
+
+      overflow-y: auto;
+      border-radius: 0.25rem;
+
+      background-color: #fff;
+      box-shadow: 0 0 20px rgb(69 71 69 / 20%);
+
+      &.active {
+        display: flex;
+      }
+
+      li {
+        cursor: pointer;
+        padding: 0.5rem 2rem 0.5rem 1rem;
+
+        &:hover {
+          background-color: #86a7bd1a;
+        }
+      }
+
+      strong {
+        font-weight: bold;
+      }
+
+      span {
+        font-size: 0.8rem;
+        margin-left: 0.25rem;
       }
     }
   }

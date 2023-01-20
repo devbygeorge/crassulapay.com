@@ -1,11 +1,16 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import s from "@/styles/Register.module.scss";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+
+type Country = {
+  name: string;
+  dial_code: string;
+  code: string;
+};
 
 export default function Register() {
   const [activeStep, setActiveStep] = useState(0);
@@ -20,6 +25,9 @@ export default function Register() {
   });
 
   const [errorMsg, setErrorMsg] = useState<null | string>(null);
+  const [countries, setCountries] = useState([]);
+  const [activeCode, setActiveCode] = useState("+93");
+  const [isCodeMenuActive, setCodeMenuActive] = useState(false);
 
   const updateField = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFields((fields) => ({
@@ -43,7 +51,7 @@ export default function Register() {
         surname: fields.surname,
         email: fields.email,
         password: fields.password,
-        phone: fields.phone,
+        phone: activeCode + fields.phone,
       })
       .then((res) => {
         console.log(res);
@@ -87,6 +95,16 @@ export default function Register() {
     registerUser();
   };
 
+  useEffect(() => {
+    const url = `https://gist.githubusercontent.com/anubhavshrimal/75f6183458db8c453306f93521e93d37/raw/f77e7598a8503f1f70528ae1cbf9f66755698a16/CountryCodes.json`;
+
+    // Get countries from restcountries.com
+    axios
+      .get(url)
+      .then((res) => setCountries(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <>
       <Head>
@@ -106,7 +124,7 @@ export default function Register() {
 
                 {/* Name field */}
                 <div className={s.field_wrapper}>
-                  <label htmlFor="name">Your name:</label>
+                  <label htmlFor="name">Your name: (Use latin alphabets)</label>
                   <input
                     type="text"
                     name="name"
@@ -114,11 +132,16 @@ export default function Register() {
                     required
                     value={fields.name}
                     onChange={updateField}
+                    pattern="[a-zA-Z]+"
+                    minLength={2}
+                    maxLength={10}
                   />
                 </div>
                 {/* Surname field */}
                 <div className={s.field_wrapper}>
-                  <label htmlFor="surname">Your surname:</label>
+                  <label htmlFor="surname">
+                    Your surname: (Use latin alphabets)
+                  </label>
                   <input
                     type="text"
                     name="surname"
@@ -126,6 +149,9 @@ export default function Register() {
                     required
                     value={fields.surname}
                     onChange={updateField}
+                    pattern="[a-zA-Z]+"
+                    minLength={2}
+                    maxLength={10}
                   />
                 </div>
 
@@ -143,7 +169,10 @@ export default function Register() {
                 </div>
                 {/* Password field */}
                 <div className={s.field_wrapper}>
-                  <label htmlFor="password">Your password:</label>
+                  <label htmlFor="password">
+                    Your password: (Minimum eight characters, at least one
+                    letter, one number and one special character)
+                  </label>
                   <input
                     type="password"
                     name="password"
@@ -151,19 +180,51 @@ export default function Register() {
                     required
                     value={fields.password}
                     onChange={updateField}
+                    minLength={8}
+                    pattern="^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
                   />
                 </div>
                 {/* Phone number */}
                 <div className={s.field_wrapper}>
-                  <label htmlFor="phone">Your phone:</label>
+                  <label htmlFor="phone">Your phone: (Use digits)</label>
                   <input
                     type="tel"
                     name="phone"
-                    placeholder="Phone*"
+                    placeholder=""
                     required
                     value={fields.phone}
                     onChange={updateField}
+                    className={s.phone_field}
+                    pattern="^\d+$"
+                    minLength={3}
+                    maxLength={13}
                   />
+                  <div className={s.select_code}>
+                    <span
+                      className={s.active_code}
+                      onClick={() => setCodeMenuActive(true)}
+                    >
+                      {activeCode}
+                    </span>
+                    <ul
+                      className={`${s.codes_menu} ${
+                        isCodeMenuActive ? s.active : ""
+                      }`}
+                    >
+                      {countries?.map((country: Country) => (
+                        <li
+                          key={country.code}
+                          onClick={() => {
+                            setActiveCode(country.dial_code);
+                            setCodeMenuActive(false);
+                          }}
+                        >
+                          <strong>{country.dial_code}</strong>
+                          <span>{country.name}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
                 {/* Address field */}
                 {/* <div className={s.field_wrapper}>
