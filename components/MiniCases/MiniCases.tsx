@@ -1,6 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
+import { useEffect, useState } from "react";
+
 import axios from "axios";
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+
 import s from "./MiniCases.module.scss";
 
 type Item = {
@@ -31,7 +34,7 @@ export default function MiniCases() {
       .get(url)
       .then((res) => setItems(res.data.data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [url]);
 
   return (
     <section className={s.mini_cases}>

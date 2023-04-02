@@ -1,11 +1,15 @@
-import Link from "next/link";
+/* eslint-disable @next/next/no-img-element */
+import { useEffect, useState } from "react";
+
 import axios from "axios";
-import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { en, ru, ka } from "translations";
+import { TbWorld } from "react-icons/tb";
+
+import { en, ka, ru } from "translations";
+
 import s from "./Header.module.scss";
 
-import { TbWorld } from "react-icons/tb";
 
 type Props = {
   isHome?: boolean;
@@ -50,7 +54,7 @@ export default function Header({ isHome }: Props) {
     } else {
       setAuthorizedUser(null);
     }
-  }, []);
+  }, [url]);
 
   return (
     <header

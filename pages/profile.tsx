@@ -1,8 +1,10 @@
+import { useEffect, useState } from "react";
+
 import Head from "next/head";
-import { useState, useEffect } from "react";
-import s from "@/styles/Profile.module.scss";
-import Header from "@/components/Header";
+
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import s from "@/styles/Profile.module.scss";
 
 type User = {
   id: string;

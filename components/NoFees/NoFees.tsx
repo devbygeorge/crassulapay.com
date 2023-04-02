@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
+
 import axios from "axios";
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+
 import s from "./NoFees.module.scss";
 
 type FetchedData = {
@@ -20,7 +22,7 @@ export default function NoFees() {
       .get(url)
       .then((res) => setFetchedData(res.data.data.attributes))
       .catch((err) => console.log(err));
-  }, []);
+  }, [url]);
 
   return (
     <div className={s.no_fees}>

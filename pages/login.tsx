@@ -1,12 +1,14 @@
+import { useState } from "react";
+
+import axios from "axios";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import axios from "axios";
+
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import s from "@/styles/Login.module.scss";
 
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 export default function Login() {
   const [fields, setFields] = useState({ identifier: "", password: "" });

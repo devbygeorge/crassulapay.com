@@ -1,8 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
+import { useEffect, useState } from "react";
+
 import axios from "axios";
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { en, ru, ka } from "translations";
+
+import { en, ka, ru } from "translations";
+
 import s from "./Hero.module.scss";
 
 type Props = {
@@ -41,7 +45,7 @@ export default function Hero({ isHome }: Props) {
     } else {
       setAuthorized(false);
     }
-  }, []);
+  }, [url]);
 
   return (
     <section className={`${s.hero} ${isHome ? "hero-space" : ""} `}>

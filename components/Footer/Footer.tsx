@@ -1,4 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+
 import s from "./Footer.module.scss";
 
 export default function Footer() {

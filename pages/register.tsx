@@ -1,10 +1,11 @@
-import Head from "next/head";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import s from "@/styles/Register.module.scss";
+import React, { useEffect, useState } from "react";
 
-import Header from "@/components/Header";
+import axios from "axios";
+import Head from "next/head";
+
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import s from "@/styles/Register.module.scss";
 
 type Country = {
   name: string;

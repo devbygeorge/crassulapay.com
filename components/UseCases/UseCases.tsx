@@ -1,6 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
+import { useEffect, useState } from "react";
+
 import axios from "axios";
-import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+
 import s from "./UseCases.module.scss";
 
 type Block = {
@@ -32,7 +35,7 @@ export default function UseCases() {
       .get(url)
       .then((res) => setBlocks(res.data.data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [url]);
 
   return (
     <section className={s.use_cases}>
