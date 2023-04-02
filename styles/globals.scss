@@ -3,8 +3,10 @@
 @use "abstract/mixins" as mix;
 @use "abstract/functions" as fn;
 
-// :root {
-// }
+:root {
+  --clr-primary-100: #00b9ff;
+  --clr-neutral-100: #ffffff;
+}
 
 html,
 body {
@@ -23,15 +25,15 @@ body {
 }
 
 .button {
-  border: 1px solid #00b9ff;
-  color: #00b9ff;
+  border: 1px solid var(--clr-primary-100);
+  color: var(--clr-primary-100);
   padding: 0.15rem 0.75rem;
   border-radius: 0.1rem;
   cursor: pointer;
 
   &:hover {
-    background-color: #00b9ff;
-    color: white;
+    background-color: var(--clr-primary-100);
+    color: var(--clr-neutral-100);
   }
 }
 
