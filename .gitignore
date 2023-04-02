@@ -35,4 +35,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-database
+# sanity
+sanity/node_modules
+sanity/dist
