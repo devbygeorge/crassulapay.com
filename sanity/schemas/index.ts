@@ -1,6 +1,53 @@
-import blockContent from './blockContent'
-import category from './category'
-import post from './post'
-import author from './author'
+import useCases from './useCases'
+import miniCases from './miniCases'
+import page from './page'
 
-export const schemaTypes = [post, author, category, blockContent]
+/* Create localized string type */
+const localeString = {
+  title: 'Loclaized string',
+  name: 'localeString',
+  type: 'object',
+  fields: [
+    {
+      title: 'English',
+      name: 'en',
+      type: 'string',
+    },
+    {
+      title: 'Russian',
+      name: 'ru',
+      type: 'string',
+    },
+    {
+      title: 'Georgian',
+      name: 'ka',
+      type: 'string',
+    },
+  ],
+}
+
+/* Create localized text type */
+const localeText = {
+  title: 'Loclaized Text',
+  name: 'localeText',
+  type: 'object',
+  fields: [
+    {
+      title: 'English',
+      name: 'en',
+      type: 'text',
+    },
+    {
+      title: 'Russian',
+      name: 'ru',
+      type: 'text',
+    },
+    {
+      title: 'Georgian',
+      name: 'ka',
+      type: 'text',
+    },
+  ],
+}
+
+export const schemaTypes = [localeString, localeText, page, useCases, miniCases]
