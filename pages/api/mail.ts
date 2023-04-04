@@ -14,7 +14,7 @@ export const sendConfirmationEmail = ({ toUser, hash }: any) => {
     const message = {
       from: process.env.GOOGLE_USER,
       to: toUser.email,
-      subject: "Crassula - Activate Account",
+      subject: "Welcome - Crassula",
       html: `
         <h3>Hello ${toUser.name}</h3>
         <p>Thank you for registering into Crassula.</p>
