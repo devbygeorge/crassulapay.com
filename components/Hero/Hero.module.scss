@@ -1,6 +1,7 @@
 @use "@/styles/abstract/mixins" as mix;
 
 .hero {
+  padding-top: 6rem;
   padding-bottom: 2rem;
 
   background-color: #37517e;
@@ -40,11 +41,15 @@
   }
 
   .image {
+    position: relative;
+    width: 320px;
+    height: 400px;
+
     @include mix.desktop {
       margin-right: 60px;
     }
     img {
-      height: 400px;
+      object-fit: cover;
     }
   }
 }

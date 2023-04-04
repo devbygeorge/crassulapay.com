@@ -22,7 +22,6 @@ export default function Register() {
     password: "",
     phone: "",
     checked: false,
-    // address: "",
   });
 
   const [errorMsg, setErrorMsg] = useState<null | string>(null);
@@ -227,18 +226,6 @@ export default function Register() {
                     </ul>
                   </div>
                 </div>
-                {/* Address field */}
-                {/* <div className={s.field_wrapper}>
-                  <label htmlFor="address">Your address:</label>
-                  <input
-                    type="text"
-                    name="address"
-                    placeholder="Your address"
-                    required
-                    value={fields.address}
-                    onChange={updateField}
-                  />
-                  </div> */}
                 {errorMsg && <p className={s.error_message}>{errorMsg}</p>}
                 <button type="submit" className={s.button}>
                   Next Step

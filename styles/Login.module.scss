@@ -5,14 +5,10 @@
   min-height: calc(100vh - 11.25rem);
 
   .step {
-    display: none;
-    width: 100%;
-    place-items: center;
-    color: #5d7079;
-  }
-
-  .show {
     display: grid;
+    place-items: center;
+    width: 100%;
+    color: #5d7079;
   }
 
   .form {

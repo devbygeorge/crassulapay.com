@@ -1,5 +1,10 @@
 @use "@/styles/abstract/mixins" as mix;
 
+.header_home {
+  margin-bottom: -6rem;
+  background-color: transparent;
+}
+
 .header {
   background-color: #37517e;
   color: white;
@@ -102,6 +107,7 @@
 
   .langs_wrapper {
     position: relative;
+    z-index: 1;
 
     &:hover .langs_menu {
       visibility: visible;

@@ -1,69 +1,56 @@
-/* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from "react";
 
-import axios from "axios";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { en, ka, ru } from "translations";
+import translations from "translations";
+import { Locales, Page } from "typings";
 
 import s from "./Hero.module.scss";
+import { urlFor } from "../../sanity";
 
 type Props = {
-  isHome?: boolean;
+  page: Page;
 };
 
-type FetchedData = {
-  title: string;
-  image?: {
-    data: {
-      attributes: {
-        url: string;
-      };
-    };
-  };
-};
-
-export default function Hero({ isHome }: Props) {
-  const [fetchedData, setFetchedData] = useState<null | FetchedData>(null);
+export default function Hero({ page }: Props) {
   const [isAuthorized, setAuthorized] = useState(false);
 
-  const router = useRouter();
-  const { locale } = router;
-  const t = locale === "ru" ? ru : locale === "ka" ? ka : en;
-  const url = `${process.env.NEXT_PUBLIC_CMS_DOMAIN}/api/hero?populate=*&locale=${locale}`;
+  const { locale } = useRouter();
+  const t = translations[locale as keyof Locales];
 
   useEffect(() => {
-    axios
-      .get(url)
-      .then((res) => setFetchedData(res.data.data.attributes))
-      .catch((err) => console.log(err));
-
     const isAuth = localStorage.getItem("user");
     if (isAuth) {
       setAuthorized(true);
     } else {
       setAuthorized(false);
     }
-  }, [url]);
+  }, []);
 
   return (
-    <section className={`${s.hero} ${isHome ? "hero-space" : ""} `}>
+    <section className={s.hero}>
       <div className={`container ${s.wrapper}`}>
         <div className={s.text}>
-          <h1 className={s.heading}>{fetchedData?.title}</h1>
+          <h1 className={s.heading}>{page["heroHeading"]}</h1>
           {isAuthorized ? (
             <Link href="/profile" className={`${s.button} button`}>
-              {t.see_profile}
+              {t["see_profile"]}
             </Link>
           ) : (
             <Link href="/register" className={`${s.button} button`}>
-              {t.get_started}
+              {t["get_started"]}
             </Link>
           )}
         </div>
         <div className={s.image}>
-          <img src="/images/hero-img.png" alt="tree of money" />
+          <Image
+            src={urlFor(page["heroImage"])}
+            alt="Hero image from database"
+            quality={100}
+            fill
+          />
         </div>
       </div>
     </section>

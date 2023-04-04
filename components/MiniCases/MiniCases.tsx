@@ -1,52 +1,30 @@
-/* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from "react";
+import Image from "next/image";
 
-import axios from "axios";
-import { useRouter } from "next/router";
+import { MiniCase } from "typings";
 
 import s from "./MiniCases.module.scss";
+import { urlFor } from "../../sanity";
 
-type Item = {
-  id: number;
-  attributes: {
-    title: string;
-    description: string;
-    order: number;
-    icon: {
-      data: {
-        attributes: {
-          url: string;
-        };
-      };
-    };
-  };
+type Props = {
+  miniCases: MiniCase[];
 };
 
-export default function MiniCases() {
-  const [items, setItems] = useState([]);
-
-  const router = useRouter();
-  const { locale } = router;
-  const url = `${process.env.NEXT_PUBLIC_CMS_DOMAIN}/api/mini-cases?populate=*&sort[0]=order%3Aasc&locale=${locale}`;
-
-  useEffect(() => {
-    axios
-      .get(url)
-      .then((res) => setItems(res.data.data))
-      .catch((err) => console.log(err));
-  }, [url]);
-
+export default function MiniCases({ miniCases }: Props) {
   return (
     <section className={s.mini_cases}>
       <div className={`container ${s.wrapper}`}>
-        {items?.map((item: Item) => (
-          <div key={item.id} className={s.item}>
-            <img
-              src={`${process.env.NEXT_PUBLIC_CMS_DOMAIN}${item.attributes.icon.data.attributes.url}`}
-              alt={item.attributes.title}
-            />
-            <h2>{item.attributes.title}</h2>
-            <p>{item.attributes.description}</p>
+        {miniCases?.map((item) => (
+          <div key={item["_id"]} className={s.item}>
+            <div className={s.image}>
+              <Image
+                src={urlFor(item["image"])}
+                alt="Mini Case image from database"
+                quality={100}
+                fill
+              />
+            </div>
+            <h2>{item["title"]}</h2>
+            <p>{item["description"]}</p>
           </div>
         ))}
       </div>

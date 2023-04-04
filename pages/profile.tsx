@@ -5,15 +5,7 @@ import Head from "next/head";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import s from "@/styles/Profile.module.scss";
-
-type User = {
-  id: string;
-  name: string;
-  surname: string;
-  email: string;
-  phone: string;
-  confirmed: boolean;
-};
+import { User } from "typings";
 
 export default function Profile() {
   const [user, setUser] = useState<User | null>(null);
@@ -55,18 +47,10 @@ export default function Profile() {
                   <h3>
                     <strong>Email: </strong>
                     {user.email}
-                    <strong>
-                      {" "}
-                      {user.confirmed ? "Verified" : "Unverified"}
-                    </strong>
                   </h3>
                   <h3>
                     <strong>Phone: </strong>
                     {user.phone}
-                  </h3>
-                  <h3>
-                    <strong>Address: </strong>
-                    Coming Soon
                   </h3>
                 </>
               ) : (

@@ -1,34 +1,17 @@
-import { useEffect, useState } from "react";
-
-import axios from "axios";
-import { useRouter } from "next/router";
+import { Page } from "typings";
 
 import s from "./NoFees.module.scss";
 
-type FetchedData = {
-  title: string;
-  description: string;
+type Props = {
+  page: Page;
 };
 
-export default function NoFees() {
-  const [fetchedData, setFetchedData] = useState<null | FetchedData>(null);
-
-  const router = useRouter();
-  const { locale } = router;
-  const url = `${process.env.NEXT_PUBLIC_CMS_DOMAIN}/api/no-fee?populate=*&locale=${locale}`;
-
-  useEffect(() => {
-    axios
-      .get(url)
-      .then((res) => setFetchedData(res.data.data.attributes))
-      .catch((err) => console.log(err));
-  }, [url]);
-
+export default function NoFees({ page }: Props) {
   return (
     <div className={s.no_fees}>
       <div className="container">
-        <h3>{fetchedData?.title}</h3>
-        <p>{fetchedData?.description}</p>
+        <h3>{page["noFeesTitle"]}</h3>
+        <p>{page["noFeesDescription"]}</p>
       </div>
     </div>
   );

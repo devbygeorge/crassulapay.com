@@ -1,73 +1,50 @@
-/* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from "react";
+import Image from "next/image";
 
-import axios from "axios";
-import { useRouter } from "next/router";
+import { UseCase } from "typings";
 
 import s from "./UseCases.module.scss";
+import { urlFor } from "../../sanity";
 
-type Block = {
-  id: number;
-  attributes: {
-    title: string;
-    description: string;
-    order: number;
-    reversed: boolean;
-    image: {
-      data: {
-        attributes: {
-          url: string;
-        };
-      };
-    };
-  };
+type Props = {
+  useCases: UseCase[];
 };
 
-export default function UseCases() {
-  const [blocks, setBlocks] = useState([]);
+export default function UseCases({ useCases }: Props) {
+  const renderBlockText = ({ title, description }: UseCase) => (
+    <div className={s.block_text}>
+      <h2>{title}</h2>
+      <p>{description}</p>
+    </div>
+  );
 
-  const router = useRouter();
-  const { locale } = router;
-  const url = `${process.env.NEXT_PUBLIC_CMS_DOMAIN}/api/use-cases?populate=*&sort[0]=order%3Aasc&locale=${locale}`;
-
-  useEffect(() => {
-    axios
-      .get(url)
-      .then((res) => setBlocks(res.data.data))
-      .catch((err) => console.log(err));
-  }, [url]);
+  const renderBlockImage = ({ image }: UseCase) => (
+    <div className={s.block_image}>
+      <Image
+        src={urlFor(image)}
+        alt="Use Case image from database"
+        quality={100}
+        fill
+      />
+    </div>
+  );
 
   return (
     <section className={s.use_cases}>
-      {blocks?.map((block: Block) =>
-        block.attributes.reversed ? (
-          <div key={block.id} className={s.block}>
-            <div className={s.block_image}>
-              <img
-                src={`${process.env.NEXT_PUBLIC_CMS_DOMAIN}${block.attributes.image.data.attributes.url}`}
-                alt={block.attributes.title}
-              />
-            </div>
-            <div className={s.block_text}>
-              <h2>{block.attributes.title}</h2>
-              <p>{block.attributes.description}</p>
-            </div>
-          </div>
-        ) : (
-          <div key={block.id} className={s.block}>
-            <div className={s.block_text}>
-              <h2>{block.attributes.title}</h2>
-              <p>{block.attributes.description}</p>
-            </div>
-            <div className={s.block_image}>
-              <img
-                src={`${process.env.NEXT_PUBLIC_CMS_DOMAIN}${block.attributes.image.data.attributes.url}`}
-                alt={block.attributes.title}
-              />
-            </div>
-          </div>
-        )
-      )}
+      {useCases?.map((item, index) => (
+        <div key={item["_id"]} className={s.block}>
+          {index % 2 == 0 ? (
+            <>
+              {renderBlockText(item)}
+              {renderBlockImage(item)}
+            </>
+          ) : (
+            <>
+              {renderBlockImage(item)}
+              {renderBlockText(item)}
+            </>
+          )}
+        </div>
+      ))}
     </section>
   );
 }

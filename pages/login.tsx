@@ -13,12 +13,7 @@ import s from "@/styles/Login.module.scss";
 export default function Login() {
   const [fields, setFields] = useState({ identifier: "", password: "" });
   const [authErr, setAuthErr] = useState(false);
-  const [activeStep, setActiveStep] = useState(0);
   const router = useRouter();
-
-  const getNextStep = () => {
-    setActiveStep((prevState) => prevState + 1);
-  };
 
   const updateField = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFields((fields) => ({
@@ -77,11 +72,11 @@ export default function Login() {
         <div className="container">
           <div className={s.login}>
             {/* Step 1 - credentials input */}
-            <div className={`${s.step} ${activeStep === 0 ? s.show : ""}`}>
+            <div className={s.step}>
               <form className={s.form} onSubmit={handleForm}>
                 <h2>Welcome back.</h2>
                 <h3>
-                  New to Wise?
+                  New to Crassula?
                   <Link className={s.signup} href="/register">
                     Sign up
                   </Link>
@@ -128,28 +123,6 @@ export default function Login() {
                 </button>
               </form>
             </div>
-
-            {/* Step 2 - number verification */}
-            {/* <div className={`${s.step} ${activeStep === 1 ? s.show : ""}`}>
-              <form className={s.form} onSubmit={handleForm}>
-                <h2>We just sent you an SMS</h2>
-                <p style={{ marginTop: ".5rem" }}>
-                  To log in, enter the security code we sent to your email
-                  address.
-                </p>
-                <label htmlFor="code">Your 6-digit code</label>
-                <input
-                  type="number"
-                  name="code"
-                  placeholder="Enter code"
-                  required
-                />
-                <button className={s.button} type="submit">
-                  Done
-                </button>
-                <p>I didn't receive a code</p>
-              </form>
-            </div> */}
           </div>
         </div>
       </main>
