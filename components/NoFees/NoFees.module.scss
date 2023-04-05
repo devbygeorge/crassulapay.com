@@ -2,18 +2,18 @@
 
 .no_fees {
   padding-block: 2.5rem;
-  background-color: #86a7bd1a;
+  background-color: var(--clr-neutral-800);
   text-align: center;
+}
 
-  h3 {
-    margin-bottom: 0.75rem;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #37517e;
-  }
+.title {
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--clr-primary-400);
+}
 
-  p {
-    font-size: 0.9rem;
-    color: #5d7079;
-  }
+.description {
+  font-size: 0.9rem;
+  color: var(--clr-neutral-700);
 }

@@ -1,52 +1,48 @@
 @use "@/styles/abstract/mixins" as mix;
 
 .mini_cases {
-  background-color: rgba(134, 167, 189, 0.1019607843);
-  text-align: center;
+  background-color: var(--clr-neutral-800);
   padding-block: 4rem;
+  text-align: center;
+}
 
-  .wrapper {
-    display: flex;
-    justify-content: space-between;
+.content {
+  display: grid;
 
-    @include mix.mobile {
-      flex-direction: column;
-      gap: 4rem;
-    }
+  @include mix.mobile {
+    gap: 4rem;
   }
 
-  .item {
-    padding-inline: 4rem;
-    font-weight: 600;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    h2 {
-      font-size: 1.6rem;
-      color: #37517e;
-      margin-bottom: 0.5rem;
-
-      @include mix.mobile {
-        font-size: 1.8rem;
-      }
-    }
-
-    p {
-      color: #5d7079;
-    }
-
-    img {
-      width: 4rem;
-      height: 4rem;
-      object-fit: contain;
-    }
+  @include mix.desktop {
+    grid-template-columns: 1fr 1fr;
   }
+}
 
-  .image {
-    position: relative;
-    width: 150px;
-    height: 150px;
+.mini_case {
+  padding-inline: 4rem;
+  font-weight: 600;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  margin-bottom: 0.5rem;
+  font-size: 1.6rem;
+  color: var(--clr-primary-400);
+}
+
+.description {
+  color: var(--clr-neutral-700);
+}
+
+.image {
+  position: relative;
+  width: 9.5rem; /* 150px */
+  height: 9.5rem; /* 150px */
+
+  img {
+    object-fit: contain;
   }
 }

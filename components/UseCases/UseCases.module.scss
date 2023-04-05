@@ -1,59 +1,51 @@
 @use "@/styles/abstract/mixins" as mix;
 
-.use_cases {
-  .block {
-    display: grid;
+.use_case {
+  display: grid;
+
+  @include mix.desktop {
     grid-template-columns: 1fr 1fr;
+  }
+}
 
-    @include mix.mobile {
-      grid-template-columns: 1fr;
-    }
+.text {
+  max-width: 63%;
+  margin: auto;
+  font-weight: bold;
+
+  @include mix.mobile {
+    padding: 2rem;
+    max-width: unset;
+    text-align: center;
+    order: 1;
+  }
+}
+
+.title {
+  font-size: 2.6rem;
+  color: var(--clr-primary-400);
+
+  @include mix.mobile {
+    font-size: 1.8rem;
+  }
+}
+
+.description {
+  margin-top: 1rem;
+  color: var(--clr-neutral-700);
+}
+
+.image {
+  position: relative;
+  width: 100%;
+  height: 50rem; /* 800px */
+
+  @include mix.mobile {
+    height: 22rem; /* 352px */
+    order: 2;
   }
 
-  .block_text {
-    max-width: 63%;
-    margin: auto;
-    font-weight: bold;
-
-    @include mix.mobile {
-      padding: 2rem;
-      max-width: unset;
-      text-align: center;
-      order: 1;
-    }
-
-    h2 {
-      font-size: 2.6rem;
-      color: #37517e;
-
-      @include mix.mobile {
-        font-size: 1.8rem;
-      }
-    }
-
-    h3 {
-      margin-top: 1rem;
-      font-size: 1.25rem;
-      color: #37517e;
-    }
-
-    p {
-      margin-top: 1rem;
-      color: #5d7079;
-    }
-  }
-
-  .block_image {
-    position: relative;
-    width: 100%;
-    height: 800px;
-
-    @include mix.mobile {
-      height: 350px;
-    }
-
-    img {
-      object-fit: cover;
-    }
+  img {
+    object-fit: cover;
   }
 }

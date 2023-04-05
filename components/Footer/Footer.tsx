@@ -1,18 +1,12 @@
-/* eslint-disable @next/next/no-img-element */
-import Link from "next/link";
+import Logo from "@/components/Logo";
 
 import s from "./Footer.module.scss";
 
 export default function Footer() {
   return (
     <footer className={s.footer}>
-      <div className={`container ${s.wrapper}`}>
-        {/* Logo */}
-        <Link className={s.logo} href="/">
-          <img src="/logo.png" alt="Tree of Money" />
-          <span>Crassula</span>
-        </Link>
-        {/* Copyright */}
+      <div className={`container ${s.content}`}>
+        <Logo />
         <div>&copy; Copyright 2023</div>
       </div>
     </footer>

@@ -11,14 +11,14 @@ type Props = {
 
 export default function UseCases({ useCases }: Props) {
   const renderBlockText = ({ title, description }: UseCase) => (
-    <div className={s.block_text}>
-      <h2>{title}</h2>
-      <p>{description}</p>
+    <div className={s.text}>
+      <h2 className={s.title}>{title}</h2>
+      <p className={s.description}>{description}</p>
     </div>
   );
 
   const renderBlockImage = ({ image }: UseCase) => (
-    <div className={s.block_image}>
+    <div className={s.image}>
       <Image
         src={urlFor(image)}
         alt="Use Case image from database"
@@ -30,17 +30,17 @@ export default function UseCases({ useCases }: Props) {
 
   return (
     <section className={s.use_cases}>
-      {useCases?.map((item, index) => (
-        <div key={item["_id"]} className={s.block}>
+      {useCases?.map((useCase, index) => (
+        <div key={useCase["_id"]} className={s.use_case}>
           {index % 2 == 0 ? (
             <>
-              {renderBlockText(item)}
-              {renderBlockImage(item)}
+              {renderBlockText(useCase)}
+              {renderBlockImage(useCase)}
             </>
           ) : (
             <>
-              {renderBlockImage(item)}
-              {renderBlockText(item)}
+              {renderBlockImage(useCase)}
+              {renderBlockText(useCase)}
             </>
           )}
         </div>

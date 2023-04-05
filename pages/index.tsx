@@ -24,7 +24,7 @@ export default function Home({ page, miniCases, useCases }: Props) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
       </Head>
-      <Header isHome />
+      <Header transparent />
       <main className="main">
         <Hero page={page} />
         <NoFees page={page} />

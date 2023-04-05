@@ -1,55 +1,63 @@
 @use "@/styles/abstract/mixins" as mix;
 
 .hero {
-  padding-top: 6rem;
-  padding-bottom: 2rem;
+  padding-block: 2rem;
 
-  background-color: #37517e;
+  background-color: var(--clr-primary-400);
   background-image: url("/images/hero-gradient.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+}
 
-  .wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    @include mix.mobile {
-      flex-direction: column;
-      text-align: center;
-      gap: 2rem;
-    }
+  @include mix.mobile {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+}
+
+.left_col {
+  @include mix.mobile {
+    margin-top: 4rem;
+  }
+}
+
+.heading {
+  max-width: 37.5rem; /* 600px */
+  margin-bottom: 1.5rem;
+
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: var(--clr-neutral-100);
+
+  @include mix.mobile {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+}
+
+.button {
+  font-size: 1.5rem;
+  padding: 0.4rem 1rem;
+}
+
+.right_col {
+  position: relative;
+  width: min(20rem, 100%);
+  aspect-ratio: 4 / 5;
+
+  @include mix.desktop {
+    margin-right: 3.75rem /* 60px */;
+    margin-top: 3.5rem;
   }
 
-  .heading {
-    font-size: 2.4rem;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 1.5rem;
-    max-width: 600px;
-
-    @include mix.mobile {
-      margin-bottom: 2.5rem;
-    }
-  }
-
-  .button {
-    font-size: 1.5rem;
-    padding: 0.4rem 1rem;
-    text-transform: capitalize;
-  }
-
-  .image {
-    position: relative;
-    width: 320px;
-    height: 400px;
-
-    @include mix.desktop {
-      margin-right: 60px;
-    }
-    img {
-      object-fit: cover;
-    }
+  img {
+    object-fit: cover;
   }
 }

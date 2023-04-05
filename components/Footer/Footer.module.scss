@@ -1,30 +1,12 @@
 .footer {
   padding-block: 1rem;
-  background-color: #37517e;
-  color: white;
+  background-color: var(--clr-primary-400);
+  color: var(--clr-neutral-100);
   font-weight: 600;
+}
 
-  .wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .logo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 0.25rem 0.75rem 0.25rem 0;
-    font-weight: bold;
-    color: #37517e;
-    background-color: white;
-    border-radius: 0.5rem;
-    cursor: pointer;
-
-    img {
-      width: 50px;
-      height: 50px;
-    }
-  }
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

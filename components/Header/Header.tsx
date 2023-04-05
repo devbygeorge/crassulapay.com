@@ -5,119 +5,141 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { TbWorld } from "react-icons/tb";
 
+import Logo from "@/components/Logo";
 import translations from "translations";
-import { Locales, User } from "typings";
+import { Locales } from "typings";
 
 import s from "./Header.module.scss";
 
+const navbarItems = [
+  {
+    name: "features",
+    path: "/#",
+  },
+  {
+    name: "pricing",
+    path: "/#",
+  },
+  {
+    name: "help",
+    path: "/#",
+  },
+];
+
+const locales = [
+  {
+    name: "english",
+    path: "/en",
+  },
+  {
+    name: "russian",
+    path: "/ru",
+  },
+  {
+    name: "georgian",
+    path: "/ka",
+  },
+];
+
 type Props = {
-  isHome?: boolean;
+  transparent?: boolean;
 };
-export default function Header({ isHome }: Props) {
-  const [isNavActive, setNavActive] = useState(false);
-  const [authorizedUser, setAuthorizedUser] = useState<User | null>(null);
-  const [isLanguageMenuActive, setLanguageMenuActive] = useState(false);
+export default function Header({ transparent }: Props) {
+  const [isNavbarActive, setNavbarActive] = useState(false);
+  const [isLocalesMenuActive, setLocalesMenuActive] = useState(false);
+  const [user, setUser] = useState(null);
 
   const { locale } = useRouter();
   const t = translations[locale as keyof Locales];
 
   useEffect(() => {
-    const localUser = localStorage.getItem("user");
-    if (localUser) {
-      setAuthorizedUser(JSON.parse(localUser).user);
-    } else {
-      setAuthorizedUser(null);
+    const userFromLocalStorage = localStorage.getItem("user");
+    if (userFromLocalStorage) {
+      setUser(JSON.parse(userFromLocalStorage)["user"]);
     }
   }, []);
 
   return (
     <header
-      className={`${s.header} ${isHome ? s.header_home : ""} ${
-        isNavActive ? s.active : ""
-      }`}
+      className={s.header}
+      data-transparent={transparent ? true : false}
+      data-visible-mobile={isNavbarActive ? true : false}
     >
-      <div className={`container ${s.wrapper}`}>
+      <div className={`container ${s.content}`}>
         {/* Logo */}
-        <Link className={s.logo} href="/">
-          <img src="/logo.png" alt="Tree of Money" />
-          <span>Crassula</span>
-        </Link>
+        <Logo />
 
-        {/* Mobile navbar toggle */}
-        <div
-          className={`${s.toggle} ${isNavActive ? s.toggle_active : ""}`}
-          onClick={() => setNavActive((state) => !state)}
-        ></div>
+        {/* Navbar Toggle */}
+        <button
+          className={s.toggle}
+          aria-expanded={isNavbarActive ? true : false}
+          onClick={() => setNavbarActive((state) => !state)}
+        ></button>
 
-        {/* Navigation */}
-        <ul className={`${s.navbar} ${isNavActive ? s.navbar_active : ""}`}>
-          {/* Render categories from strapi */}
-          <li className={s.item}>
-            <Link href="/#">{t["features"]}</Link>
-          </li>{" "}
-          <li className={s.item}>
-            <Link href="/#">{t["pricing"]}</Link>
-          </li>{" "}
-          <li className={s.item}>
-            <Link href="/#">{t["help"]}</Link>
-          </li>
-          {/* Render language change options */}
+        {/* Navbar */}
+        <nav
+          className={s.navbar}
+          data-visible-mobile={isNavbarActive ? true : false}
+        >
+          {/* Navbar Items */}
+          {navbarItems.map(({ name, path }) => (
+            <Link key={name} href={path} className={s.navbar_item}>
+              {t[name as keyof typeof t]}
+            </Link>
+          ))}
+
+          {/* Locales */}
           <div
-            className={s.langs_wrapper}
-            onClick={() => setLanguageMenuActive((state) => !state)}
+            className={s.locales_container}
+            onClick={() => setLocalesMenuActive((state) => !state)}
           >
-            <div className={s.langs_display}>
+            <div className={s.current_locale}>
               <TbWorld />
               <span>{locale}</span>
             </div>
 
-            <ul
-              className={`${s.langs_menu} ${
-                isLanguageMenuActive ? s.active : ""
-              }`}
+            <div
+              className={s.locales}
+              data-visible={isLocalesMenuActive ? true : false}
             >
-              <li className={s.langs_item}>
-                <a href="/en">{t["english"]}</a>
-              </li>
-              <li className={s.langs_item}>
-                <a href="/ru">{t["russian"]}</a>
-              </li>
-              <li className={s.langs_item}>
-                <a href="/ka">{t["georgian"]}</a>
-              </li>
-            </ul>
+              {locales.map(({ name, path }) => (
+                <Link key={name} href={path} className={s.locale_item}>
+                  {t[name as keyof typeof t]}
+                </Link>
+              ))}
+            </div>
           </div>
-          {/* Render buttons according to authorization */}
-          {authorizedUser ? (
+
+          {/* Render profile & logout or login & register buttons */}
+          {user ? (
             <>
-              <li>
-                <Link href="/profile">
-                  {t["welcome"]} {authorizedUser.name}
-                </Link>
-              </li>
-              <li className="button">
-                <Link
-                  href="/"
-                  onClick={() => {
-                    localStorage.clear();
-                    setAuthorizedUser(null);
-                  }}
-                >
-                  {t["logout"]}
-                </Link>
-              </li>
+              <Link href="/profile">
+                {t["welcome"]} {user["name"]}
+              </Link>
+
+              <Link
+                href="/"
+                onClick={() => {
+                  localStorage.clear();
+                  setUser(null);
+                }}
+                className="button"
+              >
+                {t["logout"]}
+              </Link>
             </>
           ) : (
             <>
-              <li className={s.item}>
-                <Link href="/register">{t["register"]}</Link>
-              </li>
-              <li className="button">
-                <Link href="/login">{t["login"]}</Link>
-              </li>
+              <Link href="/register" className={s.navbar_item}>
+                {t["register"]}
+              </Link>
+
+              <Link href="/login" className="button">
+                {t["login"]}
+              </Link>
             </>
           )}
-        </ul>
+        </nav>
       </div>
     </header>
   );

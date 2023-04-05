@@ -12,19 +12,19 @@ type Props = {
 export default function MiniCases({ miniCases }: Props) {
   return (
     <section className={s.mini_cases}>
-      <div className={`container ${s.wrapper}`}>
-        {miniCases?.map((item) => (
-          <div key={item["_id"]} className={s.item}>
+      <div className={`container ${s.content}`}>
+        {miniCases?.map(({ _id, title, description, image }) => (
+          <div key={_id} className={s.mini_case}>
             <div className={s.image}>
               <Image
-                src={urlFor(item["image"])}
+                src={urlFor(image)}
                 alt="Mini Case image from database"
                 quality={100}
                 fill
               />
             </div>
-            <h2>{item["title"]}</h2>
-            <p>{item["description"]}</p>
+            <h2 className={s.title}>{title}</h2>
+            <p className={s.description}>{description}</p>
           </div>
         ))}
       </div>

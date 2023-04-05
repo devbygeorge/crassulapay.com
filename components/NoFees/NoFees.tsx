@@ -8,11 +8,11 @@ type Props = {
 
 export default function NoFees({ page }: Props) {
   return (
-    <div className={s.no_fees}>
+    <section className={s.no_fees}>
       <div className="container">
-        <h3>{page["noFeesTitle"]}</h3>
-        <p>{page["noFeesDescription"]}</p>
+        <h3 className={s.title}>{page["noFeesTitle"]}</h3>
+        <p className={s.description}>{page["noFeesDescription"]}</p>
       </div>
-    </div>
+    </section>
   );
 }

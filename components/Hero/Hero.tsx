@@ -15,36 +15,35 @@ type Props = {
 };
 
 export default function Hero({ page }: Props) {
-  const [isAuthorized, setAuthorized] = useState(false);
+  const [isUserAuthorized, setUserAuthorized] = useState(true);
 
   const { locale } = useRouter();
   const t = translations[locale as keyof Locales];
 
   useEffect(() => {
-    const isAuth = localStorage.getItem("user");
-    if (isAuth) {
-      setAuthorized(true);
-    } else {
-      setAuthorized(false);
+    const userFromLocalStorage = localStorage.getItem("user");
+
+    if (userFromLocalStorage) {
+      setUserAuthorized(true);
     }
   }, []);
 
+  const renderButton = (path: string, text: string) => (
+    <Link href={path} className={`${s.button} button`}>
+      {text}
+    </Link>
+  );
+
   return (
     <section className={s.hero}>
-      <div className={`container ${s.wrapper}`}>
-        <div className={s.text}>
+      <div className={`container ${s.content}`}>
+        <div className={s.left_col}>
           <h1 className={s.heading}>{page["heroHeading"]}</h1>
-          {isAuthorized ? (
-            <Link href="/profile" className={`${s.button} button`}>
-              {t["see_profile"]}
-            </Link>
-          ) : (
-            <Link href="/register" className={`${s.button} button`}>
-              {t["get_started"]}
-            </Link>
-          )}
+          {isUserAuthorized
+            ? renderButton("/profile", t["see_profile"])
+            : renderButton("/register", t["get_started"])}
         </div>
-        <div className={s.image}>
+        <div className={s.right_col}>
           <Image
             src={urlFor(page["heroImage"])}
             alt="Hero image from database"
