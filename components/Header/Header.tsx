@@ -29,15 +29,15 @@ const navbarItems = [
 const locales = [
   {
     name: "english",
-    path: "/en",
+    code: "en",
   },
   {
     name: "russian",
-    path: "/ru",
+    code: "ru",
   },
   {
     name: "georgian",
-    path: "/ka",
+    code: "ka",
   },
 ];
 
@@ -89,21 +89,27 @@ export default function Header({ transparent }: Props) {
           ))}
 
           {/* Locales */}
-          <div
-            className={s.locales_container}
-            onClick={() => setLocalesMenuActive((state) => !state)}
-          >
-            <div className={s.current_locale}>
+          <div className={s.locales_container}>
+            <div
+              className={s.current_locale}
+              onClick={() => setLocalesMenuActive((state) => !state)}
+            >
               <TbWorld />
               <span>{locale}</span>
             </div>
 
             <div
               className={s.locales}
-              data-visible={isLocalesMenuActive ? true : false}
+              data-visible-mobile={isLocalesMenuActive ? true : false}
             >
-              {locales.map(({ name, path }) => (
-                <Link key={name} href={path} className={s.locale_item}>
+              {locales.map(({ name, code }) => (
+                <Link
+                  href="/"
+                  key={name}
+                  locale={code}
+                  className={s.locale_item}
+                  onClick={() => setLocalesMenuActive(false)}
+                >
                   {t[name as keyof typeof t]}
                 </Link>
               ))}

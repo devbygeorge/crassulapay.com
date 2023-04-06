@@ -126,9 +126,11 @@
     transform: translateX(-2.5rem);
   }
 
-  &[data-visible="true"] {
-    visibility: visible;
-    opacity: 1;
+  &[data-visible-mobile="true"] {
+    @include mix.mobile {
+      visibility: visible;
+      opacity: 1;
+    }
   }
 }
 
