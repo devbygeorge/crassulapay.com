@@ -55,7 +55,7 @@ export default function Header({ transparent }: Props) {
   useEffect(() => {
     const userFromLocalStorage = localStorage.getItem("user");
     if (userFromLocalStorage) {
-      setUser(JSON.parse(userFromLocalStorage)["user"]);
+      setUser(JSON.parse(userFromLocalStorage));
     }
   }, []);
 
@@ -104,7 +104,7 @@ export default function Header({ transparent }: Props) {
             >
               {locales.map(({ name, code }) => (
                 <Link
-                  href="/"
+                  href=""
                   key={name}
                   locale={code}
                   className={s.locale_item}

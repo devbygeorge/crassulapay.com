@@ -8,13 +8,17 @@ import { useRouter } from "next/router";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import s from "@/styles/Login.module.scss";
+import translations from "translations";
+import { Locales } from "typings";
 
 export default function Login() {
   const [fields, setFields] = useState({ email: "", password: "" });
   const [passwordShown, setPasswordShown] = useState(false);
-  const [isFieldIncorrect, setFieldIncorrect] = useState(false);
+  const [failureMessage, setFailureMessage] = useState(null);
 
   const router = useRouter();
+  const { locale } = router;
+  const t = translations[locale as keyof Locales];
 
   const updateField = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFields((fields) => ({
@@ -26,7 +30,7 @@ export default function Login() {
   const handleForm = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    const url = `/api/auth/local`;
+    const url = `/api/authorizeUser`;
 
     /* Authenticate user with inputted data */
     axios
@@ -39,7 +43,7 @@ export default function Login() {
         console.log(res);
 
         /* Set user data into local storage */
-        const userData = JSON.stringify(res.data);
+        const userData = JSON.stringify(res.data.user);
         localStorage.setItem("user", userData);
 
         /* Route user to profile page */
@@ -50,11 +54,11 @@ export default function Login() {
         console.log(err);
 
         /* Show message to user that some fields are incorrect */
-        setFieldIncorrect(true);
+        setFailureMessage(err.response.data.message);
 
         /* Remove message after 3 seconds */
         setTimeout(() => {
-          setFieldIncorrect(false);
+          setFailureMessage(null);
         }, 3000);
       });
   };
@@ -71,17 +75,17 @@ export default function Login() {
       <main className="main">
         <div className="container">
           <section className={s.login}>
-            <p className={s.welcome_text}>Welcome back.</p>
+            <p className={s.welcome_text}>{t["welcome_back"]}</p>
             <p>
-              New to Crassula?
+              {t["new_to_crassula"]}
               <Link href="/register" className={s.signup_link}>
-                Sign up
+                {t["sign_up"]}
               </Link>
             </p>
             <form className="form" onSubmit={handleForm}>
               {/* Email field */}
               <label className="form-label" htmlFor="email">
-                Your email:
+                {t["your_email"]}:
               </label>
               <input
                 className="form-field"
@@ -94,7 +98,7 @@ export default function Login() {
               />
               {/* Password field */}
               <label className="form-label" htmlFor="password">
-                Your password:
+                {t["your_password"]}:
               </label>
               <div style={{ position: "relative" }}>
                 <input
@@ -114,12 +118,12 @@ export default function Login() {
               </div>
               <p
                 className="form-message"
-                data-visible={isFieldIncorrect ? true : false}
+                data-visible={failureMessage ? true : false}
               >
-                Email or password is incorrect.
+                {failureMessage}
               </p>
               <button type="submit" className="button-primary">
-                Log in
+                {t["login"]}
               </button>
             </form>
           </section>

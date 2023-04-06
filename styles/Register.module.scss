@@ -31,6 +31,10 @@
 /* Terms & Conditions form */
 .terms_form {
   width: 100%;
+
+  input[type="checkbox"] {
+    cursor: pointer;
+  }
 }
 
 .checkbox_wrapper {

@@ -1,18 +1,25 @@
 import { useEffect, useState } from "react";
 
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import s from "@/styles/Profile.module.scss";
+import translations from "translations";
+import { Locales } from "typings";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
 
+  const router = useRouter();
+  const { locale } = router;
+  const t = translations[locale as keyof Locales];
+
   useEffect(() => {
-    const localUser = localStorage.getItem("user");
-    if (localUser) {
-      setUser(JSON.parse(localUser).user);
+    const userFromLocalStorage = localStorage.getItem("user");
+    if (userFromLocalStorage) {
+      setUser(JSON.parse(userFromLocalStorage));
     }
   }, []);
 
@@ -28,24 +35,24 @@ export default function Profile() {
       <main className="main">
         <div className="container">
           <section className={s.profile}>
-            <h2 className={s.heading}>Account Details</h2>
+            <h2 className={s.heading}>{t["account_details"]}</h2>
             <div className={s.details}>
               {user ? (
                 <>
                   <div className={s.item}>
-                    <strong>Full legal first and middle names</strong>
+                    <strong>{t["full_legal_first_name"]}</strong>
                     <span>{user["name"]}</span>
                   </div>
                   <div className={s.item}>
-                    <strong>Full legal last name(s)</strong>
+                    <strong>{t["full_legal_last_name"]}</strong>
                     <span>{user["surname"]}</span>
                   </div>
                   <div className={s.item}>
-                    <strong>Email</strong>
+                    <strong>{t["email"]}</strong>
                     <span>{user["email"]}</span>
                   </div>
                   <div className={s.item}>
-                    <strong>Phone</strong>
+                    <strong>{t["phone"]}</strong>
                     <span>{user["phone"]}</span>
                   </div>
                 </>

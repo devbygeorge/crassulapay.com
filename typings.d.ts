@@ -35,6 +35,15 @@ export interface UseCase extends SanityBody {
   image: Image;
 }
 
+export interface User extends SanityBody {
+  _type: "webUser";
+  username: string;
+  name: string;
+  surname: string;
+  email: string;
+  phone: string;
+}
+
 export interface Translations {
   [key: string]: string;
 }
@@ -43,13 +52,4 @@ export interface Locales {
   en: object;
   ru: object;
   ka: object;
-}
-
-export interface User {
-  id: string;
-  username: string;
-  name: string;
-  surname: string;
-  email: string;
-  phone: string;
 }

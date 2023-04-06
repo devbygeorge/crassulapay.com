@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import SelectCountry from "@/components/SelectCountry";
 import s from "@/styles/Register.module.scss";
+import translations from "translations";
+import { Locales } from "typings";
 
 export default function Register() {
   const [fields, setFields] = useState({
@@ -21,6 +24,10 @@ export default function Register() {
   const [isTermsChecked, setTermsChecked] = useState(false);
   const [failureMessage, setFailureMessage] = useState(null);
   const [currentPhoneCode, setCurrentPhoneCode] = useState("+995");
+
+  const router = useRouter();
+  const { locale } = router;
+  const t = translations[locale as keyof Locales];
 
   const updateField = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFields((fields) => ({
@@ -46,7 +53,7 @@ export default function Register() {
 
   const handleRegisterForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const url = `/api/local/register`;
+    const url = `/api/createUser`;
 
     /* Register user with inputted data */
     axios
@@ -61,15 +68,18 @@ export default function Register() {
         /* Log success response */
         console.log(res);
 
-        /* Move to verification step */
-        updateStep();
+        /* Set user into local storage */
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+
+        /* Move to profile page */
+        router.push("/profile");
       })
       .catch((err) => {
         /* Log error response */
         console.log(err);
 
         /* Display failure message */
-        setFailureMessage(err.message);
+        setFailureMessage(err.response.data.message);
 
         /* Remove message after 3 seconds */
         setTimeout(() => {
@@ -93,8 +103,10 @@ export default function Register() {
             {/* Step 1 - Terms and conditions */}
             <div className={s.step} data-visible={step === 0 ? true : false}>
               <form className={s.terms_form} onSubmit={handleTermsForm}>
-                <h2 className={s.heading}>Terms & Conditions</h2>
-                <p>Terms & Conditions will be added soon.</p>
+                <h2 className={s.heading}>{t["terms_and_conditions"]}</h2>
+                <p>
+                  {t["terms_and_conditions"]} {t["will_be_added_soon"]}
+                </p>
                 <div className={s.checkbox_wrapper}>
                   <input
                     type="checkbox"
@@ -103,10 +115,12 @@ export default function Register() {
                     onChange={toggleTerms}
                     required
                   />
-                  <label htmlFor="checkbox">Accept Terms & Conditions</label>
+                  <label htmlFor="checkbox">
+                    {t["accept_terms_and_conditions"]}
+                  </label>
                 </div>
                 <button type="submit" className="button-primary">
-                  Next Step
+                  {t["next_step"]}
                 </button>
               </form>
             </div>
@@ -115,12 +129,12 @@ export default function Register() {
             <div className={s.step} data-visible={step === 1 ? true : false}>
               <form className="form" onSubmit={handleRegisterForm}>
                 <h2 className={s.heading} data-center={true}>
-                  Create your Crassula account
+                  {t["create_your_crassula_account"]}
                 </h2>
 
                 {/* Name field */}
                 <label className="form-label" htmlFor="name">
-                  Your name: (Use latin alphabets)
+                  {t["your_name"]}: {t["use_latin_alphabets"]}
                 </label>
                 <input
                   type="text"
@@ -137,7 +151,7 @@ export default function Register() {
 
                 {/* Surname field */}
                 <label className="form-label" htmlFor="surname">
-                  Your surname: (Use latin alphabets)
+                  {t["your_surname"]}: {t["use_latin_alphabets"]}
                 </label>
                 <input
                   type="text"
@@ -154,7 +168,7 @@ export default function Register() {
 
                 {/* Email field */}
                 <label className="form-label" htmlFor="email">
-                  Your email:
+                  {t["your_email"]}:
                 </label>
                 <input
                   type="email"
@@ -168,7 +182,7 @@ export default function Register() {
 
                 {/* Password field */}
                 <label className="form-label" htmlFor="password">
-                  Your password: (Min 8 characters)
+                  {t["your_password"]}: {t["min_eight_characters"]}
                 </label>
                 <input
                   type="password"
@@ -184,7 +198,7 @@ export default function Register() {
                 {/* Phone number */}
                 <div style={{ position: "relative" }}>
                   <label className="form-label" htmlFor="phone">
-                    Your phone: (Use digits)
+                    {t["your_phone"]}: {t["use_digits"]}
                   </label>
                   <input
                     type="tel"
@@ -211,17 +225,9 @@ export default function Register() {
                   {failureMessage}
                 </p>
                 <button type="submit" className="button-primary">
-                  Create Account
+                  {t["create_account"]}
                 </button>
               </form>
-            </div>
-
-            {/* Step 3 - Ask Verification */}
-            <div className={s.step} data-visible={step === 2 ? true : false}>
-              <h2 className={s.heading}>
-                You have to confirm your email address. Please check your email
-                account.
-              </h2>
             </div>
           </section>
         </div>

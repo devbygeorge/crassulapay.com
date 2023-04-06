@@ -37,7 +37,7 @@ export default function Home({ page, miniCases, useCases }: Props) {
 }
 
 export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/data`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/fetchData`, {
     method: "post",
     body: JSON.stringify({
       locale: locale,
