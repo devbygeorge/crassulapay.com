@@ -1,6 +1,7 @@
 import useCase from './useCase'
 import miniCase from './miniCase'
 import page from './page'
+import webUser from './webUser'
 
 /* Create localized string type */
 const localeString = {
@@ -50,4 +51,4 @@ const localeText = {
   ],
 }
 
-export const schemaTypes = [localeString, localeText, page, useCase, miniCase]
+export const schemaTypes = [localeString, localeText, page, useCase, miniCase, webUser]
