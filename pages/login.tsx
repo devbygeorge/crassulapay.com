@@ -9,10 +9,11 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import s from "@/styles/Login.module.scss";
 
-
 export default function Login() {
-  const [fields, setFields] = useState({ identifier: "", password: "" });
-  const [authErr, setAuthErr] = useState(false);
+  const [fields, setFields] = useState({ email: "", password: "" });
+  const [passwordShown, setPasswordShown] = useState(false);
+  const [isFieldIncorrect, setFieldIncorrect] = useState(false);
+
   const router = useRouter();
 
   const updateField = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,38 +26,37 @@ export default function Login() {
   const handleForm = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    console.log("Login form handled");
+    const url = `/api/auth/local`;
 
-    const url = `${process.env.NEXT_PUBLIC_CMS_DOMAIN}/api/auth/local`;
-
-    // Post at strapi
+    /* Authenticate user with inputted data */
     axios
       .post(url, {
-        identifier: fields.identifier,
+        email: fields.email,
         password: fields.password,
       })
       .then((res) => {
-        localStorage.setItem("user", JSON.stringify(res.data));
+        /* Log success response */
+        console.log(res);
+
+        /* Set user data into local storage */
+        const userData = JSON.stringify(res.data);
+        localStorage.setItem("user", userData);
+
+        /* Route user to profile page */
         router.push("/profile");
       })
       .catch((err) => {
-        setAuthErr(true);
+        /* Log error response */
+        console.log(err);
 
+        /* Show message to user that some fields are incorrect */
+        setFieldIncorrect(true);
+
+        /* Remove message after 3 seconds */
         setTimeout(() => {
-          setAuthErr(false);
+          setFieldIncorrect(false);
         }, 3000);
       });
-  };
-
-  const togglePassword = () => {
-    var passwordField = document.getElementById(
-      "password-field"
-    ) as HTMLInputElement;
-    if (passwordField?.type === "password") {
-      passwordField.type = "text";
-    } else {
-      passwordField.type = "password";
-    }
   };
 
   return (
@@ -70,60 +70,59 @@ export default function Login() {
       <Header />
       <main className="main">
         <div className="container">
-          <div className={s.login}>
-            {/* Step 1 - credentials input */}
-            <div className={s.step}>
-              <form className={s.form} onSubmit={handleForm}>
-                <h2>Welcome back.</h2>
-                <h3>
-                  New to Crassula?
-                  <Link className={s.signup} href="/register">
-                    Sign up
-                  </Link>
-                </h3>
-                {/* Email field */}
-                <label htmlFor="email">Your email:</label>
+          <section className={s.login}>
+            <p className={s.welcome_text}>Welcome back.</p>
+            <p>
+              New to Crassula?
+              <Link href="/register" className={s.signup_link}>
+                Sign up
+              </Link>
+            </p>
+            <form className="form" onSubmit={handleForm}>
+              {/* Email field */}
+              <label className="form-label" htmlFor="email">
+                Your email:
+              </label>
+              <input
+                className="form-field"
+                type="email"
+                name="email"
+                placeholder="..."
+                value={fields.email}
+                onChange={updateField}
+                required
+              />
+              {/* Password field */}
+              <label className="form-label" htmlFor="password">
+                Your password:
+              </label>
+              <div style={{ position: "relative" }}>
                 <input
-                  className={s.field}
-                  type="email"
-                  name="identifier"
-                  placeholder="Your email"
-                  required
-                  value={fields.identifier}
+                  className="form-field"
+                  type={passwordShown ? "text" : "password"}
+                  name="password"
+                  placeholder="..."
+                  value={fields.password}
                   onChange={updateField}
+                  required
                 />
-                {/* Password field */}
-                <label htmlFor="password">Your password:</label>
-                <div className={s.password_wrapper}>
-                  <input
-                    className={s.field}
-                    id="password-field"
-                    type="password"
-                    name="password"
-                    placeholder="Your password"
-                    required
-                    value={fields.password}
-                    onChange={updateField}
-                  />
-                  <input
-                    className={s.checkbox}
-                    type="checkbox"
-                    onClick={togglePassword}
-                  />
-                </div>
-                <p
-                  style={{
-                    display: !authErr ? "none" : "",
-                  }}
-                >
-                  Email or password is incorrect.
-                </p>
-                <button className={s.button} type="submit">
-                  Log in
-                </button>
-              </form>
-            </div>
-          </div>
+                <input
+                  type="checkbox"
+                  className="form-checkbox"
+                  onClick={() => setPasswordShown((state) => !state)}
+                />
+              </div>
+              <p
+                className="form-message"
+                data-visible={isFieldIncorrect ? true : false}
+              >
+                Email or password is incorrect.
+              </p>
+              <button type="submit" className="button-primary">
+                Log in
+              </button>
+            </form>
+          </section>
         </div>
       </main>
       <Footer />

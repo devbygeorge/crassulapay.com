@@ -5,17 +5,14 @@ import Head from "next/head";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import s from "@/styles/Profile.module.scss";
-import { User } from "typings";
 
 export default function Profile() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const localUser = localStorage.getItem("user");
     if (localUser) {
       setUser(JSON.parse(localUser).user);
-    } else {
-      setUser(null);
     }
   }, []);
 
@@ -30,34 +27,33 @@ export default function Profile() {
       <Header />
       <main className="main">
         <div className="container">
-          <div className={s.profile}>
-            <h2>Account Details</h2>
+          <section className={s.profile}>
+            <h2 className={s.heading}>Account Details</h2>
             <div className={s.details}>
               {user ? (
                 <>
-                  <h3>
-                    <strong>Name: </strong>
-                    {user.name}
-                  </h3>
-                  <h3>
-                    <strong>Surname: </strong>
-                    {user.surname}
-                  </h3>
-
-                  <h3>
-                    <strong>Email: </strong>
-                    {user.email}
-                  </h3>
-                  <h3>
-                    <strong>Phone: </strong>
-                    {user.phone}
-                  </h3>
+                  <div className={s.item}>
+                    <strong>Full legal first and middle names</strong>
+                    <span>{user["name"]}</span>
+                  </div>
+                  <div className={s.item}>
+                    <strong>Full legal last name(s)</strong>
+                    <span>{user["surname"]}</span>
+                  </div>
+                  <div className={s.item}>
+                    <strong>Email</strong>
+                    <span>{user["email"]}</span>
+                  </div>
+                  <div className={s.item}>
+                    <strong>Phone</strong>
+                    <span>{user["phone"]}</span>
+                  </div>
                 </>
               ) : (
                 "Please Log in to see account details"
               )}
             </div>
-          </div>
+          </section>
         </div>
       </main>
       <Footer />

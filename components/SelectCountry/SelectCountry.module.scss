@@ -1,0 +1,49 @@
+.select_country {
+  position: absolute;
+  bottom: 1rem;
+  left: 0.5rem;
+}
+
+.current_code {
+  border: 1px solid var(--clr-neutral-600);
+  padding: 0.15rem 0.5rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.codes_menu {
+  position: absolute;
+  top: 2rem;
+
+  display: none;
+  flex-direction: column;
+
+  height: 12.5rem; /* 200px */
+  background-color: var(--clr-neutral-100);
+
+  overflow-y: auto;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 1.25rem var(--clr-shadow);
+
+  &[data-visible="true"] {
+    display: flex;
+  }
+
+  li {
+    cursor: pointer;
+    padding: 0.5rem 2rem 0.5rem 1rem;
+
+    &:hover {
+      background-color: var(--clr-background);
+    }
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  span {
+    font-size: 0.8rem;
+    margin-left: 0.25rem;
+  }
+}
