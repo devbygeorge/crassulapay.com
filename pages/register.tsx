@@ -24,6 +24,7 @@ export default function Register() {
   const [isTermsChecked, setTermsChecked] = useState(false);
   const [failureMessage, setFailureMessage] = useState(null);
   const [currentPhoneCode, setCurrentPhoneCode] = useState("+995");
+  const [isLoading, setLoading] = useState(false);
 
   const router = useRouter();
   const { locale } = router;
@@ -53,6 +54,9 @@ export default function Register() {
 
   const handleRegisterForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
+
+    setLoading(true);
+
     const url = `/api/createUser`;
 
     /* Register user with inputted data */
@@ -77,6 +81,8 @@ export default function Register() {
       .catch((err) => {
         /* Log error response */
         console.log(err);
+
+        setLoading(false);
 
         /* Display failure message */
         setFailureMessage(err.response.data.message);
@@ -158,7 +164,7 @@ export default function Register() {
                   name="surname"
                   placeholder="..."
                   minLength={2}
-                  maxLength={10}
+                  maxLength={16}
                   pattern="[a-zA-Z]+"
                   value={fields.surname}
                   onChange={updateField}
@@ -224,7 +230,11 @@ export default function Register() {
                 >
                   {failureMessage}
                 </p>
-                <button type="submit" className="button-primary">
+                <button
+                  type="submit"
+                  className="button-primary"
+                  data-loading={isLoading ? true : false}
+                >
                   {t["create_account"]}
                 </button>
               </form>

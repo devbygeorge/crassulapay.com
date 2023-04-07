@@ -15,6 +15,7 @@ export default function Login() {
   const [fields, setFields] = useState({ email: "", password: "" });
   const [passwordShown, setPasswordShown] = useState(false);
   const [failureMessage, setFailureMessage] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
   const router = useRouter();
   const { locale } = router;
@@ -29,6 +30,8 @@ export default function Login() {
 
   const handleForm = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+
+    setLoading(true);
 
     const url = `/api/authorizeUser`;
 
@@ -55,6 +58,8 @@ export default function Login() {
 
         /* Show message to user that some fields are incorrect */
         setFailureMessage(err.response.data.message);
+
+        setLoading(false);
 
         /* Remove message after 3 seconds */
         setTimeout(() => {
@@ -122,7 +127,11 @@ export default function Login() {
               >
                 {failureMessage}
               </p>
-              <button type="submit" className="button-primary">
+              <button
+                type="submit"
+                className="button-primary"
+                data-loading={isLoading ? true : false}
+              >
                 {t["login"]}
               </button>
             </form>

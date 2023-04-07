@@ -69,6 +69,11 @@ body {
   &:hover {
     background-color: var(--clr-primary-400);
   }
+
+  &[data-loading="true"] {
+    background-color: var(--clr-neutral-800);
+    pointer-events: none;
+  }
 }
 
 /* Form Styles */
