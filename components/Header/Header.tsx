@@ -44,6 +44,7 @@ const locales = [
 type Props = {
   transparent?: boolean;
 };
+
 export default function Header({ transparent }: Props) {
   const [isNavbarActive, setNavbarActive] = useState(false);
   const [isLocalesMenuActive, setLocalesMenuActive] = useState(false);
